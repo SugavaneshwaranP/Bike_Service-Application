@@ -1,0 +1,75 @@
+/* src/styles/Home.css */
+
+/* Outer full-screen container */
+.home-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #f3f4f6, #d1d5db);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card-like welcome box */
+.home-card {
+  background-color: white;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+}
+
+/* Main title */
+.home-title {
+  font-size: 2.5rem;
+  color: #1e40af;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Subtitle text */
+.home-subtitle {
+  font-size: 1.1rem;
+  color: #4b5563;
+  margin-bottom: 30px;
+}
+
+/* Button container */
+.home-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Common button styling */
+.btn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Login Button style */
+.btn-login {
+  background-color: #1e40af;
+  color: white;
+}
+
+.btn-login:hover {
+  background-color: #1e3a8a;
+}
+
+/* Register Button style */
+.btn-register {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.btn-register:hover {
+  background-color: #d97706;
+}
