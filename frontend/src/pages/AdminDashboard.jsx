@@ -5,6 +5,9 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import DashboardHome from "../components/DashboardHome";
 import "../styles/AdminDashboard.css";
+import ManageServices from "../components/ManageServices";
+
+import ManageBookings from "../components/ManageBookings";
 
 function AdminDashboard() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -12,7 +15,9 @@ function AdminDashboard() {
   // Render dynamic content
   const renderPage = () => {
     if (activePage === "dashboard") return <DashboardHome />;
-    if (activePage === "services") return <h2>Manage Services (Coming Soon)</h2>;
+    if (activePage === "services") return <ManageServices />;
+if (activePage === "bookings") return <ManageBookings />;
+ 
     if (activePage === "bookings") return <h2>Manage Bookings (Coming Soon)</h2>;
   };
 
