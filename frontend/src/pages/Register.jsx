@@ -1,102 +1,101 @@
 // src/pages/Register.jsx
 
 import React, { useState } from "react";
-import "../styles/Register.css"; // External CSS file
 import { useNavigate } from "react-router-dom";
-
-// Hardcoded secret code for Admin registration
-const SECRET_CODE = "BIKEADMIN123";
+import axios from "../api/axios";
+import "../styles/Register.css"; 
 
 function Register() {
   const navigate = useNavigate();
 
-  // Form state
   const [form, setForm] = useState({
     name: "",
     email: "",
-    mobile: "",
     password: "",
-    role: "Customer", // default role
-    secret: "", // only used for Admin
+    mobile: "",
+    role: "CUSTOMER",
+    secretCode: "",
   });
 
-  // Handle all input changes
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // If user chooses Admin, validate secret code
-    if (form.role === "Admin" && form.secret !== SECRET_CODE) {
-      alert("❌ Invalid admin secret code!");
+    // Admin role validation
+    if (form.role === "ADMIN" && form.secretCode !== "bikeadmin123") {
+      alert("Invalid admin secret code");
       return;
     }
 
     try {
-      // Send data to backend (update the endpoint when backend is ready)
-      await axios.post("/auth/register", form);
-      alert("✅ Registered successfully!");
+      const res = await axios.post("/auth/register", {
+        name: form.name,
+        email: form.email,
+        password: form.password,
+        mobile: form.mobile,
+        role: form.role,
+      });
+
+      alert("Registered successfully! Please login.");
       navigate("/login");
     } catch (err) {
-      alert("❌ Registration failed. Try again.");
+      alert("Registration failed. " + err.response?.data?.message || "");
+      console.error(err);
     }
   };
 
   return (
     <div className="register-container">
-      <form className="register-form" onSubmit={handleSubmit}>
-        <h2>Create Account</h2>
+      <form onSubmit={handleSubmit} className="register-form">
+        <h2>Register</h2>
 
         <input
           name="name"
-          placeholder="Full Name"
+          type="text"
+          placeholder="Enter your name"
           required
           onChange={handleChange}
         />
-
         <input
           name="email"
           type="email"
-          placeholder="Email Address"
+          placeholder="Enter your email"
           required
           onChange={handleChange}
         />
-
-        <input
-          name="mobile"
-          placeholder="Mobile Number"
-          required
-          onChange={handleChange}
-        />
-
         <input
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder="Enter your password"
+          required
+          onChange={handleChange}
+        />
+        <input
+          name="mobile"
+          type="text"
+          placeholder="Enter your mobile number"
           required
           onChange={handleChange}
         />
 
-        {/* Role selection dropdown */}
-        <select name="role" value={form.role} onChange={handleChange}>
-          <option value="Customer">Customer</option>
-          <option value="Admin">Admin</option>
+        <select name="role" onChange={handleChange} value={form.role}>
+          <option value="CUSTOMER">Customer</option>
+          <option value="ADMIN">Admin</option>
         </select>
 
-        {/* Admin Secret Code Field - Conditional */}
-        {form.role === "Admin" && (
+        {form.role === "ADMIN" && (
           <input
-            name="secret"
+            name="secretCode"
+            type="text"
             placeholder="Enter Admin Secret Code"
-            required
             onChange={handleChange}
           />
         )}
 
-        <button type="submit">Sign Up</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
