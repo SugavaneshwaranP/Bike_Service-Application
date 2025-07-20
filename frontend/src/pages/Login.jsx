@@ -1,42 +1,44 @@
 // src/pages/Login.jsx
 
 import React, { useState } from "react";
-import "../styles/Login.css"; // External CSS
 import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
+import "../styles/Login.css";
 
 function Login() {
   const navigate = useNavigate();
+  const [form, setForm] = useState({ email: "", password: "" });
 
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
-
-  // Handle input change
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Fake logic for now (since backend not connected)
-      const { email } = form;
+      const res = await axios.post("/auth/login", form);
+      const user = res.data;
 
-      // Simulate role check
-      if (email === "admin@bike.com") {
-        alert("Logged in as Admin");
-        navigate("/admin/dashboard");
-      } else {
-        alert("Logged in as Customer");
-        navigate("/services");
+      if (!user || !user.role) {
+        alert("Invalid credentials");
+        return;
       }
 
-      // Later: Replace with axios.post("/auth/login", form)
+      // Store user info in localStorage (or Context later)
+      localStorage.setItem("userId", user.id);
+      localStorage.setItem("userRole", user.role);
+
+      if (user.role === "ADMIN") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/user/dashboard"); // Or /services
+      }
+
+      alert(`Logged in as ${user.role}`);
     } catch (err) {
-      alert("Login failed!");
+      alert("Login failed. Check email and password.");
+      console.error(err);
     }
   };
 

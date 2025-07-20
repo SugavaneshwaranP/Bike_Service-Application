@@ -101,3 +101,8 @@ th, td {
   padding: 20px;
   border-radius: 10px;
 }
+
+
+button {
+  margin-right: 8px;
+}

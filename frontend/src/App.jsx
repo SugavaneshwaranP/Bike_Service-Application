@@ -6,7 +6,9 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import AdminDashboard from "./pages/AdminDashboard"; 
-
+import CustomerDashboard from "./pages/CustomerDashboard";
+import BookService from "./components/BookService";
+import MyBookings from "./components/MyBookings";
 
 function App() {
   return (
@@ -23,6 +25,12 @@ function App() {
         <Route path="/register" element={<Register />} />
       
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+              <Route path="/user/dashboard" element={<CustomerDashboard/>}/>
+
+              <Route path="/services" element={<BookService />} />
+<Route path="/mybookings" element={<MyBookings />} />
+
 
       </Routes>
     </BrowserRouter>

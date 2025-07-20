@@ -1,76 +1,108 @@
-import React, { useState } from "react";
+// src/pages/BookService.jsx
 
-const availableServices = [
-  { id: 1, name: "General Service" },
-  { id: 2, name: "Oil Change" },
-  { id: 3, name: "Water Wash" },
-];
+import React, { useEffect, useState } from "react";
+import axios from "../api/axios";
+import "../styles/BookService.css";
 
 function BookService() {
+  const [services, setServices] = useState([]);
   const [selectedServices, setSelectedServices] = useState([]);
-  const [bookingDate, setBookingDate] = useState("");
+const [bookingDate, setBookingDate] = useState(""); // ✅ CORRECT
+  const userId = localStorage.getItem("userId");
 
-  const handleCheckbox = (serviceId) => {
-    if (selectedServices.includes(serviceId)) {
-      setSelectedServices(selectedServices.filter((id) => id !== serviceId));
+  // Fetch all services on component mount
+  useEffect(() => {
+    axios
+      .get("/services")
+      .then((res) => setServices(res.data))
+      .catch((err) => console.error("Service fetch failed", err));
+  }, []);
+
+  // Toggle selection of service
+  const toggleService = (id) => {
+    if (selectedServices.includes(id)) {
+      setSelectedServices(selectedServices.filter((sid) => sid !== id));
     } else {
-      setSelectedServices([...selectedServices, serviceId]);
+      setSelectedServices([...selectedServices, id]);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // Handle booking submission
+  const handleBooking = async () => {
+  if (!bookingDate || selectedServices.length === 0) {
+    alert("Please select services and a date");
+    return;
+  }
 
-    if (!bookingDate || selectedServices.length === 0) {
-      alert("Please select at least one service and a date.");
-      return;
-    }
+  try {
+    await axios.post("/bookings", {
+  customerId: userId,
+  serviceIds: selectedServices,
+  bookingDate: bookingDate,
+});
 
-    const selectedNames = availableServices
-      .filter((s) => selectedServices.includes(s.id))
-      .map((s) => s.name);
 
-    alert(`Booking Confirmed!\nDate: ${bookingDate}\nServices: ${selectedNames.join(", ")}`);
-
-    setBookingDate("");
+    alert("Booking successful!");
     setSelectedServices([]);
-  };
+    setBookingDate("");
+  } catch (err) {
+    alert("Failed to book service");
+    console.error(err);
+  }
+};
+
 
   return (
-    <div>
-      <h2>🛠 Book a Service</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <p>Select Services:</p>
-          {availableServices.map((service) => (
-            <label key={service.id} style={{ display: "block" }}>
-              <input
-                type="checkbox"
-                value={service.id}
-                checked={selectedServices.includes(service.id)}
-                onChange={() => handleCheckbox(service.id)}
-              />
-              {service.name}
-            </label>
+    <div className="book-service">
+      <h2>🛠️ Book Bike Service</h2>
+
+      {/* Services Table */}
+      <table className="service-table">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>ID</th>
+            <th>Service Name</th>
+            <th>Price (₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {services.map((s) => (
+            <tr key={s.id}>
+              <td>
+                <input
+                  type="checkbox"
+                  checked={selectedServices.includes(s.id)}
+                  onChange={() => toggleService(s.id)}
+                />
+              </td>
+              <td>{s.id}</td>
+              <td>{s.serviceName}</td>
+              <td>{s.price}</td>
+            </tr>
           ))}
-        </div>
+        </tbody>
+      </table>
 
-        <div style={{ marginTop: "15px" }}>
-          <label>
-            Select Booking Date:{" "}
-            <input
-              type="date"
-              value={bookingDate}
-              onChange={(e) => setBookingDate(e.target.value)}
-              required
-            />
-          </label>
-        </div>
+      {/* Booking Date */}
+      <div className="input-group" style={{ marginTop: "20px" }}>
+        <label>Select Booking Date: </label>
+        <input
+          type="date"
+          value={bookingDate}
+          onChange={(e) => setBookingDate(e.target.value)}
+          required
+        />
+      </div>
 
-        <button type="submit" style={{ marginTop: "15px" }}>
-          Confirm Booking
-        </button>
-      </form>
+      {/* Submit Button */}
+      <button
+        className="book-btn"
+        style={{ marginTop: "20px" }}
+        onClick={handleBooking}
+      >
+         Book Service
+      </button>
     </div>
   );
 }

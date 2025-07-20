@@ -11,7 +11,7 @@ function CustomerDashboard() {
       <div className="sidebar">
         <button onClick={() => setActivePage("book")}>🛠 Book Service</button>
         <button onClick={() => setActivePage("mybookings")}>📄 My Bookings</button>
-        <button onClick={() => alert("Logged out!")}>🚪 Logout</button>
+        <button onClick={() => window.location.href = "/"}>🚪 Logout</button>
       </div>
 
       <div className="dashboard-content">

@@ -10,7 +10,7 @@ function Sidebar({ setActivePage }) {
       <button onClick={() => setActivePage("dashboard")}>Dashboard</button>
       <button onClick={() => setActivePage("services")}>Manage Services</button>
       <button onClick={() => setActivePage("bookings")}>Manage Bookings</button>
-      <button onClick={() => window.location.href = "/login"}>Logout</button>
+      <button onClick={() => window.location.href = "/"}>Logout</button>
     </div>
   );
 }

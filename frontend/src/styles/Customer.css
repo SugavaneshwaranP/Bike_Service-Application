@@ -1,0 +1,107 @@
+.customer-dashboard {
+  display: flex;
+  height: 100vh;
+  background-color: #f8fafc;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #1e3a8a;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar button {
+  padding: 10px 15px;
+  background-color: white;
+  color: #1e3a8a;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.sidebar button:hover {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 30px;
+  background-color: #f1f5f9;
+}
+
+form input[type="date"] {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #94a3b8;
+  margin-top: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  margin-top: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+  background-color: #1e40af;
+  color: white;
+}
+
+tr:hover {
+  background-color: #f0f9ff;
+}
+
+button {
+  padding: 8px 12px;
+  margin-right: 8px;
+  border: none;
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 500;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+.status-badge {
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.status-badge.pending {
+  background-color: #facc15;
+  color: black;
+}
+
+.status-badge.ready {
+  background-color: #60a5fa;
+  color: white;
+}
+
+.status-badge.completed {
+  background-color: #22c55e;
+  color: white;
+}
