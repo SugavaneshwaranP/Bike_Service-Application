@@ -35,7 +35,6 @@ function Login() {
         navigate("/user/dashboard"); // Or /services
       }
 
-      alert(`Logged in as ${user.role}`);
     } catch (err) {
       alert("Login failed. Check email and password.");
       console.error(err);
