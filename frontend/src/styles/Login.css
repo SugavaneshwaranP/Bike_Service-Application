@@ -4,6 +4,11 @@
   min-height: 100vh;
   background: linear-gradient(to right, #fdf2f8, #c7d2fe);
   display: flex;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url('D:\Bike-App\frontend\public\assets\image.png'); /* ✅ Place bike-bg.jpg inside public/assets */
+  background-size: cover;
+  background-position: center;
   align-items: center;
   justify-content: center;
 }
