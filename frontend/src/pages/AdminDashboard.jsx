@@ -4,29 +4,41 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import DashboardHome from "../components/DashboardHome";
-import "../styles/AdminDashboard.css";
 import ManageServices from "../components/ManageServices";
-
 import ManageBookings from "../components/ManageBookings";
+
+import "../styles/AdminDashboard.css";
 
 function AdminDashboard() {
   const [activePage, setActivePage] = useState("dashboard");
 
-  // Render dynamic content
+  // 🔁 Dynamic content based on active page
   const renderPage = () => {
-    if (activePage === "dashboard") return <DashboardHome />;
-    if (activePage === "services") return <ManageServices />;
-if (activePage === "bookings") return <ManageBookings />;
- 
-    if (activePage === "bookings") return <h2>Manage Bookings (Coming Soon)</h2>;
+    switch (activePage) {
+      case "dashboard":
+        return <DashboardHome />;
+      case "services":
+        return <ManageServices />;
+      case "bookings":
+        return <ManageBookings />;
+      default:
+        return <h2>🚧 Coming Soon</h2>;
+    }
   };
 
   return (
     <div className="admin-dashboard">
+      {/* 📌 Sidebar Navigation */}
       <Sidebar setActivePage={setActivePage} />
+
+      {/* 🧠 Main Section */}
       <div className="admin-main">
         <Header />
-        <div className="admin-content">{renderPage()}</div>
+
+        <div className="admin-content">
+          {/* 🧾 Dynamic Content */}
+          {renderPage()}
+        </div>
       </div>
     </div>
   );

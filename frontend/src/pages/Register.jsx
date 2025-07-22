@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
-import "../styles/Register.css"; // optional
+import "../styles/Register.css";
 
 function Register() {
   const navigate = useNavigate();
@@ -24,9 +24,8 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Admin role validation
     if (form.role === "ADMIN" && form.secretCode !== "bikeadmin123") {
-      alert("Invalid admin secret code");
+      alert("❌ Invalid admin secret code");
       return;
     }
 
@@ -39,63 +38,86 @@ function Register() {
         role: form.role,
       });
 
-      alert("Registered successfully! Please login.");
+      alert("✅ Registered successfully! Please login.");
       navigate("/login");
     } catch (err) {
-      alert("Registration failed. " + err.response?.data?.message || "");
+      alert("❌ Registration failed. " + (err.response?.data?.message || ""));
       console.error(err);
     }
   };
 
   return (
     <div className="register-container">
+      {/* 🔁 Marquee banner */}
+      <div className="register-marquee">
+        Join the Ride | 👤 Register as Customer or Admin | 🚀 Quick Bike Service Bookings
+      </div>
+
       <form onSubmit={handleSubmit} className="register-form">
         <h2>Register</h2>
 
         <input
           name="name"
           type="text"
-          placeholder="Enter your name"
+          placeholder="👤 Enter your name"
           required
           onChange={handleChange}
         />
         <input
           name="email"
           type="email"
-          placeholder="Enter your email"
+          placeholder="📧 Enter your email"
           required
           onChange={handleChange}
         />
         <input
           name="password"
           type="password"
-          placeholder="Enter your password"
+          placeholder="🔒 Enter your password"
           required
           onChange={handleChange}
         />
         <input
           name="mobile"
           type="text"
-          placeholder="Enter your mobile number"
+          placeholder="📱 Enter your mobile number"
           required
           onChange={handleChange}
         />
 
         <select name="role" onChange={handleChange} value={form.role}>
-          <option value="CUSTOMER">Customer</option>
-          <option value="ADMIN">Admin</option>
+          <option value="CUSTOMER">👨‍🔧 Customer</option>
+          <option value="ADMIN">👨‍💼 Admin</option>
         </select>
 
         {form.role === "ADMIN" && (
           <input
             name="secretCode"
             type="text"
-            placeholder="Enter Admin Secret Code"
+            placeholder="🔐 Enter Admin Secret Code"
             onChange={handleChange}
           />
         )}
 
-        <button type="submit">Register</button>
+        <button type="submit">✅ Register</button>
+
+        {/* 🔙 Back to Home Button */}
+        <button
+          type="button"
+          style={{
+            backgroundColor: "#f97316",
+            marginTop: "8px",
+            color: "white",
+            padding: "10px",
+            borderRadius: "8px",
+            border: "none",
+            fontWeight: "500",
+            cursor: "pointer",
+          }}
+          onClick={() => navigate("/")}
+        >
+          ⬅️ Back to Home
+        </button>
       </form>
     </div>
   );

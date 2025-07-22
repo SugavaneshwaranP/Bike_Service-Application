@@ -63,6 +63,23 @@ function Login() {
         />
 
         <button type="submit">Login</button>
+
+        <button
+          type="button"
+          style={{
+            backgroundColor: "#f97316",
+            marginTop: "8px",
+            color: "white",
+            padding: "10px",
+            borderRadius: "8px",
+            border: "none",
+            fontWeight: "500",
+            cursor: "pointer",
+          }}
+          onClick={() => navigate("/")}
+        >
+          ⬅️ Back to Home
+        </button>
       </form>
     </div>
   );

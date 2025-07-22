@@ -8,7 +8,7 @@
   justify-content: center;
   background: 
     linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url('D:\Bike-App\frontend\public\assets\image1.png'); /* ✅ Place bike-bg.jpg inside public/assets */
+    url('/assets/image1.png'); /* ✅ Place bike-bg.jpg inside public/assets */
   background-size: cover;
   background-position: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

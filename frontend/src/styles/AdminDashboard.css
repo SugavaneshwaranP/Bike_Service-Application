@@ -3,87 +3,132 @@
 .admin-dashboard {
   display: flex;
   height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: 
+  linear-gradient(rgba(255, 255, 255, 0.95), rgba(236, 253, 245, 0.8)),
+  url('/assets/images.png');
+
+  background-size: cover;
+  background-position: center;
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+
 }
 
+/* 📘 Sidebar Navigation */
 .admin-sidebar {
-  width: 220px;
-  background-color: #1e3a8a;
+  width: 230px;
+  background: linear-gradient(to bottom, #1e3a8a, #2563eb);
   color: white;
-  padding: 20px;
+  padding: 25px 20px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 18px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-title {
-  font-size: 20px;
-  margin-bottom: 20px;
-  color: #93c5fd;
+  font-size: 22px;
+  font-weight: 600;
+  color: #bfdbfe;
+  margin-bottom: 25px;
 }
 
 .admin-sidebar button {
   background: transparent;
   border: none;
-  color: white;
+  color: #f3f4f6;
   font-size: 16px;
   cursor: pointer;
   text-align: left;
-  padding: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
 }
 
 .admin-sidebar button:hover {
-  background-color: #2563eb;
-  border-radius: 5px;
-  padding-left: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding-left: 12px;
 }
 
+/* 🧾 Main Area */
 .admin-main {
   flex-grow: 1;
-  background-color: #f9fafb;
   display: flex;
   flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
 }
 
 .admin-header {
-  padding: 20px;
-  background-color: white;
-  border-bottom: 1px solid #ddd;
+  padding: 25px;
+  background: #ffffffee;
+  border-bottom: 1px solid #d1d5db;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
 }
 
 .admin-content {
-  padding: 30px;
+  padding: 35px;
+  overflow-y: auto;
 }
 
+/* 📊 Dashboard Stats */
 .dashboard-home .stat-boxes {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 25px;
   margin-top: 20px;
 }
 
 .stat-box {
-  background-color: #1d4ed8;
+  background: linear-gradient(to right, #3b82f6, #60a5fa);
   color: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 200px;
+  padding: 25px 20px;
+  border-radius: 12px;
+  width: 220px;
   text-align: center;
+  box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
 }
 
+.stat-box:hover {
+  transform: scale(1.05);
+}
 
-
-
+/* 📋 Table Style */
 table {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 30px;
   border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-th, td {
+th {
+  background-color: #1d4ed8;
+  color: white;
+  padding: 14px;
+  font-weight: 600;
+}
+
+td {
   padding: 12px;
-  border: 1px solid #ddd;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
 }
 
+tr:hover {
+  background-color: #f3f4f6;
+}
+
+/* 🧊 Modal Glass Box */
 .modal {
   position: fixed;
   top: 0;
@@ -94,15 +139,31 @@ th, td {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 }
 
 .modal-box {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 14px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-
+/* 🧷 Button General Style */
 button {
   margin-right: 8px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #1e40af;
 }
