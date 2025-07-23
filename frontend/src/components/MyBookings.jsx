@@ -31,15 +31,17 @@ function MyBookings() {
             </tr>
           </thead>
           <tbody>
-            {bookings.map((b) => (
-              <tr key={b.id}>
-                <td>{b.id}</td>
-                <td>{b.services.map((s) => s.serviceName).join(", ")}</td>
-                <td>{b.bookingDate}</td>
-                <td>{b.status}</td>
-              </tr>
-            ))}
-          </tbody>
+  {bookings.map((b) => (
+    <tr key={b.id}>
+      <td>{b.id}</td>
+      <td>{(b.services || []).map((s) => s.serviceName).join(", ")}</td>
+      <td>{b.bookingDate}</td>
+      <td>{b.status}</td>
+    </tr>
+  ))}
+</tbody>
+
+
         </table>
       )}
     </div>

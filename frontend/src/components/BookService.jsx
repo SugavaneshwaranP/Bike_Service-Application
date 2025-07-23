@@ -35,7 +35,7 @@ const [bookingDate, setBookingDate] = useState(""); // ✅ CORRECT
   }
 
   try {
-    await axios.post("/bookings", {
+   await axios.post("/bookings", {
   customerId: userId,
   serviceIds: selectedServices,
   bookingDate: bookingDate,

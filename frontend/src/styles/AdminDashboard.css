@@ -3,54 +3,50 @@
 .admin-dashboard {
   display: flex;
   height: 100vh;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: 
-  linear-gradient(rgba(255, 255, 255, 0.95), rgba(236, 253, 245, 0.8)),
-  url('/assets/images.png');
-
-  background-size: cover;
-  background-position: center;
-
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-
-
+  font-family: cursive;
+  background: linear-gradient(to right, #e0f2fe, #fef9c3); /* Soft light theme */
 }
 
 /* 📘 Sidebar Navigation */
 .admin-sidebar {
-  width: 230px;
-  background: linear-gradient(to bottom, #1e3a8a, #2563eb);
-  color: white;
+  width: 240px;
+  background: linear-gradient(to bottom, #1e3a8a, #122e5b);
+  color: rgb(40, 6, 98);
   padding: 25px 20px;
   display: flex;
   flex-direction: column;
   gap: 18px;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .sidebar-title {
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: bold;
   color: #bfdbfe;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
+  text-align: center;
+    font-family: cursive;
+
 }
 
 .admin-sidebar button {
   background: transparent;
   border: none;
   color: #f3f4f6;
-  font-size: 16px;
+  font-size: 22px;
   cursor: pointer;
   text-align: left;
-  padding: 10px;
-  border-radius: 8px;
-  transition: background 0.3s ease;
+  padding: 12px 10px;
+  border-radius: 10px;
+  transition: background 0.3s ease, padding-left 0.2s;
+  font-family: cursive;
 }
 
 .admin-sidebar button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding-left: 12px;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding-left: 18px;
 }
 
 /* 🧾 Main Area */
@@ -58,17 +54,17 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  background-color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
+  background: linear-gradient(to bottom right, #69c3ff, #b5a7d9);
 }
 
 .admin-header {
-  padding: 25px;
-  background: #ffffffee;
-  border-bottom: 1px solid #d1d5db;
-  font-size: 20px;
+  padding: 24px;
+  background: #ffffff;
+  border-bottom: 2px solid #e5e7eb;
+  font-size: 22px;
   font-weight: 600;
-  color: #1f2937;
+  color: #1e3a8a;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .admin-content {
@@ -85,15 +81,18 @@
 }
 
 .stat-box {
-  background: linear-gradient(to right, #3b82f6, #60a5fa);
+  background: linear-gradient(to right, #112a52, #0e2542);
   color: white;
   padding: 25px 20px;
-  border-radius: 12px;
+  border-radius: 15px;
   width: 220px;
   text-align: center;
-  box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
-  font-size: 1.1rem;
+  box-shadow: 0 6px 20px rgba(155, 174, 203, 0.3);
+  font-size: 1.2rem;
+  font-weight: 500;
   transition: transform 0.2s ease;
+    font-family: cursive;
+
 }
 
 .stat-box:hover {
@@ -106,8 +105,8 @@ table {
   margin-top: 30px;
   border-collapse: collapse;
   background-color: white;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -154,16 +153,53 @@ tr:hover {
 /* 🧷 Button General Style */
 button {
   margin-right: 8px;
-  padding: 10px 14px;
-  border-radius: 8px;
+  padding: 10px 16px;
+  border-radius: 10px;
   border: none;
   background-color: #2563eb;
   color: white;
-  cursor: pointer;
   font-weight: 500;
-  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s;
 }
 
 button:hover {
   background-color: #1e40af;
+  transform: translateY(-1px);
 }
+/* Marquee Banner */
+.admin-marquee {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: linear-gradient(to right, #2563eb, #1e3a8a);
+  color: #fff;
+  padding: 8px 0;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  z-index: 999;
+    font-family: cursive;
+
+}
+
+/* Adjust the dashboard to account for fixed marquee */
+.admin-dashboard {
+  padding-top: 40px; /* space for marquee */
+}
+
+/* Sidebar logo styling */
+.sidebar-logo {
+  width: 100px;
+  margin: 0 auto 20px;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+
+
+
+
+
+

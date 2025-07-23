@@ -35,35 +35,33 @@ function ManageServices() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // 🧾 Submit form (Add or Update based on `editingId`)
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const formattedData = {
-      ...form,
-      price: parseFloat(form.price), // ensure price is a number
-    };
-
-    try {
-      if (editingId) {
-        // 🔁 UPDATE service
-        await axios.put(`/services/${editingId}`, formattedData);
-        alert("✅ Service updated successfully!");
-      } else {
-        // ➕ CREATE service
-        await axios.post("/services", formattedData);
-        alert("✅ New service added!");
-      }
-
-      // Reset form and refresh list
-      setForm({ serviceName: "", description: "", price: "" });
-      setEditingId(null);
-      fetchServices();
-    } catch (err) {
-      alert("❌ Error while saving service");
-      console.error(err);
-    }
+  const formattedData = {
+    ...form,
+    price: parseFloat(form.price),
+    ownerId: localStorage.getItem("userId"), // ✅ Inject owner ID
   };
+
+  try {
+    if (editingId) {
+      await axios.put(`/services/${editingId}`, formattedData);
+      alert("✅ Service updated successfully!");
+    } else {
+      await axios.post("/services", formattedData);
+      alert("✅ New service added!");
+    }
+
+    setForm({ serviceName: "", description: "", price: "" });
+    setEditingId(null);
+    fetchServices();
+  } catch (err) {
+    alert("❌ Error while saving service");
+    console.error(err);
+  }
+};
+
 
   // ✏️ Edit mode - preload form
   const handleEdit = (service) => {

@@ -12,7 +12,6 @@ import "../styles/AdminDashboard.css";
 function AdminDashboard() {
   const [activePage, setActivePage] = useState("dashboard");
 
-  // 🔁 Dynamic content based on active page
   const renderPage = () => {
     switch (activePage) {
       case "dashboard":
@@ -28,18 +27,26 @@ function AdminDashboard() {
 
   return (
     <div className="admin-dashboard">
-      {/* 📌 Sidebar Navigation */}
+      {/* 🔔 Top Marquee Bar */}
+      <div className="admin-marquee">
+        <marquee behavior="scroll" direction="left" scrollamount="6">
+          🚀 Welcome Admin! | 🛠️ Manage Services | 📅 Track Bookings | 🎯 Monitor Dashboard | 📢 New Features Coming Soon!
+        </marquee>
+      </div>
+
+      {/* 📌 Sidebar + Content */}
       <Sidebar setActivePage={setActivePage} />
 
-      {/* 🧠 Main Section */}
       <div className="admin-main">
         <Header />
-
-        <div className="admin-content">
-          {/* 🧾 Dynamic Content */}
-          {renderPage()}
-        </div>
+        
+        <div className="admin-content">{renderPage()}</div>
       </div>
+
+
+
+  
+
     </div>
   );
 }
