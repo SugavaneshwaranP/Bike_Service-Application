@@ -1,50 +1,49 @@
-// src/components/ManageServices.jsx
-
 import React, { useEffect, useState } from "react";
-import axios from "../api/axios"; // Axios instance pointing to Spring Boot backend
-import "../styles/ManageServices.css"; // External CSS
+import axios from "../api/axios";
+import "../styles/ManageServices.css";
 
 function ManageServices() {
   const [services, setServices] = useState([]);
-  const ownerId = localStorage.getItem("userId"); // or whatever key you store
-
-
   const [form, setForm] = useState({
-    serviceName: "",
-    description: "",
-    price: "",
-  });
+  serviceName: "",
+  description: "",
+  price: "",
+});
 
-  const [editingId, setEditingId] = useState(null); // null = add, ID = edit mode
 
-  // 🔁 Fetch all services on component mount
+  const [editingId, setEditingId] = useState(null);
+
+  const ownerId = localStorage.getItem("userId");
+  const userRole = localStorage.getItem("userRole"); // check if ADMIN
+
   useEffect(() => {
     fetchServices();
   }, []);
 
-  // 🔄 Load all services from backend
   const fetchServices = async () => {
     try {
-      const res = await axios.get("/services"); // GET /api/services
+      const res = await axios.get("/services");
       setServices(res.data);
     } catch (err) {
       console.error("Failed to fetch services", err);
     }
   };
 
-  // 🔄 Handle input change for form
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
- const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
   e.preventDefault();
 
+  const ownerId = localStorage.getItem("userId");
+
   const formattedData = {
-    ...form,
+    serviceName: form.serviceName, // ✅ not 'name'
+    description: form.description,
     price: parseFloat(form.price),
-  ownerId: ownerId,  // ✅ must include
-    };
+    ownerId, // ✅ required by schema
+  };
 
   try {
     if (editingId) {
@@ -55,6 +54,7 @@ function ManageServices() {
       alert("✅ New service added!");
     }
 
+    // reset
     setForm({ serviceName: "", description: "", price: "" });
     setEditingId(null);
     fetchServices();
@@ -65,17 +65,15 @@ function ManageServices() {
 };
 
 
-  // ✏️ Edit mode - preload form
   const handleEdit = (service) => {
     setForm({
       serviceName: service.serviceName,
       description: service.description,
       price: service.price,
     });
-    setEditingId(service.id);
+    setEditingId(service._id);
   };
 
-  // 🗑 Delete a service
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this service?")) {
       try {
@@ -83,8 +81,8 @@ function ManageServices() {
         alert("🗑️ Service deleted!");
         fetchServices();
       } catch (err) {
-        alert("❌ Failed to delete service");
-        console.error(err);
+        console.error("❌ Failed to delete service", err);
+        alert("❌ Could not delete service");
       }
     }
   };
@@ -93,32 +91,35 @@ function ManageServices() {
     <div className="manage-services">
       <h2>🛠️ Manage Bike Services</h2>
 
-      {/* 🔧 Add or Update Form */}
-      <form onSubmit={handleSubmit} className="service-form">
-        <input
-          name="serviceName"
-          placeholder="Service Name"
-          value={form.serviceName}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="description"
-          placeholder="Description"
-          value={form.description}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="price"
-          type="number"
-          placeholder="Price"
-          value={form.price}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">{editingId ? "Update" : "Add"} Service</button>
-      </form>
+      {/* ✅ Show Add Form Only for Admin */}
+      {userRole === "ADMIN" && (
+        <form onSubmit={handleSubmit} className="service-form">
+          <input
+  name="serviceName"
+  placeholder="Service Name"
+  value={form.serviceName}
+  onChange={handleChange}
+  required
+/>
+
+          <input
+            name="description"
+            placeholder="Description"
+            value={form.description}
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="price"
+            type="number"
+            placeholder="Price"
+            value={form.price}
+            onChange={handleChange}
+            required
+          />
+          <button type="submit">{editingId ? "Update" : "Add"} Service</button>
+        </form>
+      )}
 
       {/* 📋 Table of Services */}
       <table className="service-table">
@@ -128,20 +129,22 @@ function ManageServices() {
             <th>Service</th>
             <th>Description</th>
             <th>Price (₹)</th>
-            <th>Actions</th>
+            {userRole === "ADMIN" && <th>Actions</th>}
           </tr>
         </thead>
         <tbody>
           {services.map((s) => (
-            <tr key={s.id}>
-              <td>{s.id}</td>
+            <tr key={s._id}>
+              <td>{s._id}</td>
               <td>{s.serviceName}</td>
               <td>{s.description}</td>
               <td>{s.price}</td>
-              <td>
-                <button onClick={() => handleEdit(s)}>✏️ Edit</button>
-                <button onClick={() => handleDelete(s.id)}>🗑️ Delete</button>
-              </td>
+              {userRole === "ADMIN" && (
+                <td>
+                  <button onClick={() => handleEdit(s)}>✏️ Edit</button>
+                  <button onClick={() => handleDelete(s._id)}>🗑️ Delete</button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

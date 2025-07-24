@@ -1,5 +1,3 @@
-// src/components/ManageBookings.jsx
-
 import React, { useState, useEffect } from "react";
 import axios from "../api/axios";
 import BookingDetails from "./BookingDetails";
@@ -28,9 +26,7 @@ function ManageBookings() {
   // ✅ Handle status update (PENDING → READY → COMPLETED)
   const handleStatusUpdate = async (bookingId, newStatus) => {
     try {
-      await axios.put(`/bookings/${bookingId}/status`, null, {
-        params: { status: newStatus },
-      });
+      await axios.put(`/bookings/${bookingId}/status`, { status: newStatus });
       alert(`Booking marked as ${newStatus}`);
       fetchBookings(); // Refresh list
     } catch (err) {
@@ -58,22 +54,22 @@ function ManageBookings() {
         </thead>
         <tbody>
           {bookings.map((b) => (
-            <tr key={b.id}>
-              <td>{b.id}</td>
+            <tr key={b._id}>
+              <td>{b._id}</td>
               <td>{b.customer?.name || "N/A"}</td>
-              <td>{b.services.map((s) => s.serviceName).join(", ")}</td>
+              <td>{b.services.map((s) => s.name).join(", ")}</td>
               <td>{b.status}</td>
-              <td>{b.bookingDate}</td>
+              <td>{new Date(b.bookingDate).toLocaleDateString()}</td>
               <td>
                 <button onClick={() => setSelectedBooking(b)}>🔍 View</button>
 
                 {b.status === "PENDING" && (
-                  <button onClick={() => setConfirmAction({ id: b.id, status: "READY" })}>
+                  <button onClick={() => setConfirmAction({ id: b._id, status: "READY" })}>
                     ✅ Ready
                   </button>
                 )}
                 {b.status === "READY" && (
-                  <button onClick={() => setConfirmAction({ id: b.id, status: "COMPLETED" })}>
+                  <button onClick={() => setConfirmAction({ id: b._id, status: "COMPLETED" })}>
                     ✔ Completed
                   </button>
                 )}

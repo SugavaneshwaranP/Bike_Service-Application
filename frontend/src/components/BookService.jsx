@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
-import axios from "../api/axios"; // Axios instance pointing to backend
-import "../styles/ManageServices.css";
+import axios from "../api/axios";
+import "../styles/BookService.css";
 
-function ManageServices() {
+function BookService() {
   const [services, setServices] = useState([]);
-  const ownerId = localStorage.getItem("userId");
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [bookingDate, setBookingDate] = useState("");
 
-  const [form, setForm] = useState({
-    serviceName: "",
-    description: "",
-    price: "",
-  });
-
-  const [editingId, setEditingId] = useState(null); // null = add, ID = edit mode
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     fetchServices();
@@ -20,127 +15,99 @@ function ManageServices() {
 
   const fetchServices = async () => {
     try {
-      const res = await axios.get("/services"); // Backend: GET /api/services
+      const res = await axios.get("/services");
       setServices(res.data);
     } catch (err) {
-      console.error("Failed to fetch services", err);
+      console.error("Failed to load services", err);
+      alert("Error fetching services");
     }
   };
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const toggleService = (serviceId) => {
+    if (selectedServices.includes(serviceId)) {
+      setSelectedServices(selectedServices.filter((id) => id !== serviceId));
+    } else {
+      setSelectedServices([...selectedServices, serviceId]);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formattedData = {
-      ...form,
-      price: parseFloat(form.price),
-      ownerId: ownerId,
-    };
+    if (!bookingDate || selectedServices.length === 0) {
+      alert("❌ Please select at least one service and a date.");
+      return;
+    }
 
     try {
-      if (editingId) {
-        // Update
-        await axios.put(`/services/${editingId}`, formattedData);
-        alert("✅ Service updated successfully!");
-      } else {
-        // Create — updated endpoint
-        await axios.post("/services/with-owner", formattedData); // ✅ NEW ENDPOINT
-        alert("✅ New service added!");
-      }
+      const payload = {
+        customerId: userId,
+        serviceIds: selectedServices,
+        bookingDate,
+      };
 
-      setForm({ serviceName: "", description: "", price: "" });
-      setEditingId(null);
-      fetchServices();
+      await axios.post("/bookings", payload);
+      alert("✅ Booking placed successfully!");
+      setSelectedServices([]);
+      setBookingDate("");
     } catch (err) {
-      alert("❌ Error while saving service");
-      console.error(err);
-    }
-  };
-
-  const handleEdit = (service) => {
-    setForm({
-      serviceName: service.serviceName,
-      description: service.description,
-      price: service.price,
-    });
-    setEditingId(service.id);
-  };
-
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this service?")) {
-      try {
-        await axios.delete(`/services/${id}`);
-        alert("🗑️ Service deleted!");
-        fetchServices();
-      } catch (err) {
-        alert("❌ Failed to delete service");
-        console.error(err);
-      }
+      console.error("Booking failed", err);
+      alert("❌ Failed to place booking");
     }
   };
 
   return (
-    <div className="manage-services">
-      <h2>🛠️ Manage Bike Services</h2>
+    <div className="book-service">
+      <h2>📅 Book a Bike Service</h2>
 
-      {/* 🔧 Add or Update Form */}
-      <form onSubmit={handleSubmit} className="service-form">
-        <input
-          name="serviceName"
-          placeholder="Service Name"
-          value={form.serviceName}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="description"
-          placeholder="Description"
-          value={form.description}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="price"
-          type="number"
-          placeholder="Price"
-          value={form.price}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">{editingId ? "Update" : "Add"} Service</button>
-      </form>
-
-      {/* 📋 Table of Services */}
-      <table className="service-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Service</th>
-            <th>Description</th>
-            <th>Price (₹)</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+      <form onSubmit={handleSubmit} className="booking-form">
+        <label>Select Services:</label>
+        <div className="service-options">
           {services.map((s) => (
-            <tr key={s.id}>
-              <td>{s.id}</td>
-              <td>{s.serviceName}</td>
-              <td>{s.description}</td>
-              <td>{s.price}</td>
-              <td>
-                <button onClick={() => handleEdit(s)}>✏️ Edit</button>
-                <button onClick={() => handleDelete(s.id)}>🗑️ Delete</button>
-              </td>
-            </tr>
+            <div key={s._id} className="service-checkbox">
+              <input
+                type="checkbox"
+                id={`service-${s._id}`}
+                checked={selectedServices.includes(s._id)}
+                onChange={() => toggleService(s._id)}
+              />
+              <label htmlFor={`service-${s._id}`}>
+                {s.serviceName} - ₹{s.price}
+              </label>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+
+        {selectedServices.length > 0 && (
+          <div className="selected-services-preview">
+            <h4>🧾 Selected Services:</h4>
+            <ul>
+              {services
+                .filter((s) => selectedServices.includes(s._id))
+                .map((s) => (
+                  <li key={s._id}>
+                    {s.serviceName} - ₹{s.price}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        )}
+
+        <label htmlFor="bookingDate">Choose Date:</label>
+        <input
+          type="date"
+          id="bookingDate"
+          value={bookingDate}
+          onChange={(e) => setBookingDate(e.target.value)}
+          required
+        />
+
+        <button type="submit" className="book-btn">
+          ✅ Confirm Booking
+        </button>
+      </form>
     </div>
   );
 }
 
-export default ManageServices;
+export default BookService;

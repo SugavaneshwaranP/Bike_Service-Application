@@ -7,11 +7,15 @@ function BookingDetails({ booking, onClose }) {
   const [fullBooking, setFullBooking] = useState(null);
 
   useEffect(() => {
-    if (booking?.id) {
+    if (booking?._id) {
+      // Optional: If full details are not passed, fetch from backend
       axios
-        .get(`/bookings/${booking.id}`)
+        .get(`/bookings/${booking._id}`) // ❗ Only if you add this endpoint
         .then((res) => setFullBooking(res.data))
-        .catch(() => alert("Error loading booking details"));
+        .catch(() => {
+          // fallback if route doesn't exist – just use props
+          setFullBooking(booking);
+        });
     }
   }, [booking]);
 
@@ -22,17 +26,17 @@ function BookingDetails({ booking, onClose }) {
       <div className="modal-content">
         <h3>Booking Details</h3>
 
-        <p><strong>Booking ID:</strong> {fullBooking.id}</p>
+        <p><strong>Booking ID:</strong> {fullBooking._id}</p>
         <p><strong>Customer:</strong> {fullBooking.customer?.name}</p>
         <p><strong>Email:</strong> {fullBooking.customer?.email}</p>
-        <p><strong>Date:</strong> {fullBooking.bookingDate}</p>
+        <p><strong>Date:</strong> {new Date(fullBooking.bookingDate).toLocaleDateString()}</p>
         <p><strong>Status:</strong> {fullBooking.status}</p>
 
         <p><strong>Services:</strong></p>
         <ul>
           {fullBooking.services?.map((s, idx) => (
             <li key={idx}>
-              {s.serviceName} - ₹{s.price}
+              {s.name} - ₹{s.price}
             </li>
           ))}
         </ul>

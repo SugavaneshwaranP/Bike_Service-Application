@@ -6,7 +6,7 @@ import "../styles/AddServiceForm.css"; // Optional styling
 
 function AddServiceForm({ service, onSuccess, onCancel }) {
   const [form, setForm] = useState({
-    serviceName: "",
+    name: "",
     description: "",
     price: "",
   });
@@ -14,23 +14,21 @@ function AddServiceForm({ service, onSuccess, onCancel }) {
   useEffect(() => {
     if (service) {
       setForm({
-        serviceName: service.serviceName,
+        name: service.name,
         description: service.description,
         price: service.price,
       });
     }
   }, [service]);
 
-  // Handle form input changes
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Handle save button
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.serviceName || !form.price) {
+    if (!form.name || !form.price) {
       alert("Service Name and Price are required");
       return;
     }
@@ -38,7 +36,7 @@ function AddServiceForm({ service, onSuccess, onCancel }) {
     try {
       if (service) {
         // PUT: Update existing service
-        await axios.put(`/services/${service.id}`, {
+        await axios.put(`/services/${service._id}`, {
           ...form,
           price: parseFloat(form.price),
         });
@@ -52,8 +50,9 @@ function AddServiceForm({ service, onSuccess, onCancel }) {
         alert("New service added!");
       }
 
-      onSuccess(); // reload list
+      onSuccess(); // Reload service list
     } catch (err) {
+      console.error(err);
       alert("Error saving service");
     }
   };
@@ -64,9 +63,9 @@ function AddServiceForm({ service, onSuccess, onCancel }) {
         <h3>{service ? "Edit Service" : "Add New Service"}</h3>
 
         <input
-          name="serviceName"
+          name="name"
           placeholder="Service Name"
-          value={form.serviceName}
+          value={form.name}
           onChange={handleChange}
           required
         />
