@@ -1,13 +1,10 @@
-// src/pages/AdminDashboard.jsx
-
 import React, { useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import DashboardHome from "../components/DashboardHome";
 import ManageServices from "../components/ManageServices";
 import ManageBookings from "../components/ManageBookings";
-
-import "../styles/AdminDashboard.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function AdminDashboard() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -21,32 +18,32 @@ function AdminDashboard() {
       case "bookings":
         return <ManageBookings />;
       default:
-        return <h2>🚧 Coming Soon</h2>;
+        return <h2 className="text-center text-secondary">🚧 Coming Soon</h2>;
     }
   };
 
   return (
-    <div className="admin-dashboard">
-      {/* 🔔 Top Marquee Bar */}
-      <div className="admin-marquee">
-        <marquee behavior="scroll" direction="left" scrollamount="6">
+    <div className="container-fluid vh-100 d-flex flex-column px-0">
+      {/* 🔔 Marquee */}
+      <div className="bg-primary text-white py-2 text-center">
+        <marquee behavior="scroll" direction="left" scrollamount="5">
           🚀 Welcome Admin! | 🛠️ Manage Services | 📅 Track Bookings | 🎯 Monitor Dashboard | 📢 New Features Coming Soon!
         </marquee>
       </div>
 
-      {/* 📌 Sidebar + Content */}
-      <Sidebar setActivePage={setActivePage} />
+      {/* 📌 Sidebar + Main Content */}
+      <div className="row flex-grow-1 m-0">
+        {/* Sidebar */}
+        <div className="col-12 col-md-2 bg-light border-end p-3">
+          <Sidebar setActivePage={setActivePage} />
+        </div>
 
-      <div className="admin-main">
-        <Header />
-        
-        <div className="admin-content">{renderPage()}</div>
+        {/* Main Content */}
+        <div className="col-12 col-md-10 p-4 overflow-auto">
+          <Header />
+          <div className="mt-4">{renderPage()}</div>
+        </div>
       </div>
-
-
-
-  
-
     </div>
   );
 }

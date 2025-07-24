@@ -1,9 +1,7 @@
-// src/pages/Login.jsx
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
-import "../styles/Login.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Login() {
   const navigate = useNavigate();
@@ -25,14 +23,13 @@ function Login() {
         return;
       }
 
-      // Store user info in localStorage (or Context later)
       localStorage.setItem("userId", user.id);
       localStorage.setItem("userRole", user.role);
 
       if (user.role === "ADMIN") {
         navigate("/admin/dashboard");
       } else {
-        navigate("/user/dashboard"); // Or /services
+        navigate("/user/dashboard");
       }
 
     } catch (err) {
@@ -42,45 +39,47 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form">
-        <h2>Login</h2>
+    <div className="d-flex align-items-center justify-content-center vh-100 bg-light">
+      <div className="card shadow p-4" style={{ width: "100%", maxWidth: "400px" }}>
+        <h3 className="text-center mb-4">🔐 Login</h3>
 
-        <input
-          name="email"
-          type="email"
-          placeholder="Enter your email"
-          required
-          onChange={handleChange}
-        />
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <input
+              name="email"
+              type="email"
+              className="form-control"
+              placeholder="Enter your email"
+              required
+              onChange={handleChange}
+            />
+          </div>
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Enter your password"
-          required
-          onChange={handleChange}
-        />
+          <div className="mb-3">
+            <input
+              name="password"
+              type="password"
+              className="form-control"
+              placeholder="Enter your password"
+              required
+              onChange={handleChange}
+            />
+          </div>
 
-        <button type="submit">Login</button>
-
-        <button
-          type="button"
-          style={{
-            backgroundColor: "#f97316",
-            marginTop: "8px",
-            color: "white",
-            padding: "10px",
-            borderRadius: "8px",
-            border: "none",
-            fontWeight: "500",
-            cursor: "pointer",
-          }}
-          onClick={() => navigate("/")}
-        >
-          ⬅️ Back to Home
-        </button>
-      </form>
+          <div className="d-grid gap-2">
+            <button type="submit" className="btn btn-primary">
+              🚀 Login
+            </button>
+            <button
+              type="button"
+              className="btn btn-warning"
+              onClick={() => navigate("/")}
+            >
+              ⬅️ Back to Home
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

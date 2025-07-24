@@ -57,25 +57,25 @@ function BookService() {
   };
 
   return (
-    <div className="container mt-4">
-      <h2 className="mb-4 text-primary">📅 Book a Bike Service</h2>
+    <div className="container mt-5">
+      <h2 className="mb-4">📅 Book a Bike Service</h2>
 
-      <form onSubmit={handleSubmit} className="card p-4 shadow-sm">
+      <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className="form-label fw-bold">Select Services:</label>
+          <label className="form-label">Select Services:</label>
           <div className="row">
             {services.map((s) => (
-              <div className="col-md-6 mb-2" key={s._id}>
+              <div key={s._id} className="col-md-6 mb-2">
                 <div className="form-check">
                   <input
-                    type="checkbox"
                     className="form-check-input"
+                    type="checkbox"
                     id={`service-${s._id}`}
                     checked={selectedServices.includes(s._id)}
                     onChange={() => toggleService(s._id)}
                   />
                   <label className="form-check-label" htmlFor={`service-${s._id}`}>
-                    {s.name} - ₹{s.price}
+                    {s.serviceName} - ₹{s.price}
                   </label>
                 </div>
               </div>
@@ -84,15 +84,14 @@ function BookService() {
         </div>
 
         {selectedServices.length > 0 && (
-          <div className="mb-3">
+          <div className="mb-4">
             <h5>🧾 Selected Services:</h5>
             <ul className="list-group">
               {services
                 .filter((s) => selectedServices.includes(s._id))
                 .map((s) => (
-                  <li className="list-group-item d-flex justify-content-between align-items-center" key={s._id}>
-                    {s.name}
-                    <span className="badge bg-primary">₹{s.price}</span>
+                  <li className="list-group-item" key={s._id}>
+                    {s.serviceName} - ₹{s.price}
                   </li>
                 ))}
             </ul>
@@ -100,7 +99,7 @@ function BookService() {
         )}
 
         <div className="mb-3">
-          <label htmlFor="bookingDate" className="form-label fw-bold">Choose Date:</label>
+          <label htmlFor="bookingDate" className="form-label">Choose Date:</label>
           <input
             type="date"
             id="bookingDate"
@@ -111,7 +110,7 @@ function BookService() {
           />
         </div>
 
-        <button type="submit" className="btn btn-success w-100">
+        <button type="submit" className="btn btn-primary">
           ✅ Confirm Booking
         </button>
       </form>

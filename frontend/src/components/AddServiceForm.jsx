@@ -3,8 +3,10 @@ import axios from "../api/axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function AddServiceForm({ service, onSuccess, onCancel }) {
+
+
   const [form, setForm] = useState({
-    name: "",
+    serviceName: "",
     description: "",
     price: "",
   });

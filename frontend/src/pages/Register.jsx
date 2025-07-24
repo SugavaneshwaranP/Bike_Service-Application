@@ -1,9 +1,7 @@
-// src/pages/Register.jsx
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
-import "../styles/Register.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Register() {
   const navigate = useNavigate();
@@ -30,7 +28,7 @@ function Register() {
     }
 
     try {
-      const res = await axios.post("/auth/register", {
+      await axios.post("/auth/register", {
         name: form.name,
         email: form.email,
         password: form.password,
@@ -47,78 +45,94 @@ function Register() {
   };
 
   return (
-    <div className="register-container">
-      {/* 🔁 Marquee banner */}
-      <div className="register-marquee">
-        Join the Ride | 👤 Register as Customer or Admin | 🚀 Quick Bike Service Bookings
+    <div className="container d-flex align-items-center justify-content-center min-vh-100 bg-light">
+      <div className="card shadow p-4 w-100" style={{ maxWidth: "450px" }}>
+        <h3 className="text-center mb-3">📝 Register</h3>
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <input
+              name="name"
+              type="text"
+              className="form-control"
+              placeholder="👤 Enter your name"
+              required
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="mb-3">
+            <input
+              name="email"
+              type="email"
+              className="form-control"
+              placeholder="📧 Enter your email"
+              required
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="mb-3">
+            <input
+              name="password"
+              type="password"
+              className="form-control"
+              placeholder="🔒 Enter your password"
+              required
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="mb-3">
+            <input
+              name="mobile"
+              type="text"
+              className="form-control"
+              placeholder="📱 Enter your mobile number"
+              required
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="mb-3">
+            <select
+              name="role"
+              className="form-select"
+              onChange={handleChange}
+              value={form.role}
+            >
+              <option value="CUSTOMER">👨‍🔧 Customer</option>
+              <option value="ADMIN">👨‍💼 Admin</option>
+            </select>
+          </div>
+
+          {form.role === "ADMIN" && (
+            <div className="mb-3">
+              <input
+                name="secretCode"
+                type="text"
+                className="form-control"
+                placeholder="🔐 Enter Admin Secret Code"
+                onChange={handleChange}
+              />
+            </div>
+          )}
+
+          <div className="d-grid gap-2">
+            <button type="submit" className="btn btn-success">
+              ✅ Register
+            </button>
+
+            <button
+              type="button"
+              className="btn btn-warning"
+              onClick={() => navigate("/")}
+            >
+              ⬅️ Back to Home
+            </button>
+          </div>
+        </form>
       </div>
-
-      <form onSubmit={handleSubmit} className="register-form">
-        <h2>Register</h2>
-
-        <input
-          name="name"
-          type="text"
-          placeholder="👤 Enter your name"
-          required
-          onChange={handleChange}
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="📧 Enter your email"
-          required
-          onChange={handleChange}
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="🔒 Enter your password"
-          required
-          onChange={handleChange}
-        />
-        <input
-          name="mobile"
-          type="text"
-          placeholder="📱 Enter your mobile number"
-          required
-          onChange={handleChange}
-        />
-
-        <select name="role" onChange={handleChange} value={form.role}>
-          <option value="CUSTOMER">👨‍🔧 Customer</option>
-          <option value="ADMIN">👨‍💼 Admin</option>
-        </select>
-
-        {form.role === "ADMIN" && (
-          <input
-            name="secretCode"
-            type="text"
-            placeholder="🔐 Enter Admin Secret Code"
-            onChange={handleChange}
-          />
-        )}
-
-        <button type="submit">✅ Register</button>
-
-        {/* 🔙 Back to Home Button */}
-        <button
-          type="button"
-          style={{
-            backgroundColor: "#f97316",
-            marginTop: "8px",
-            color: "white",
-            padding: "10px",
-            borderRadius: "8px",
-            border: "none",
-            fontWeight: "500",
-            cursor: "pointer",
-          }}
-          onClick={() => navigate("/")}
-        >
-          ⬅️ Back to Home
-        </button>
-      </form>
     </div>
   );
 }
