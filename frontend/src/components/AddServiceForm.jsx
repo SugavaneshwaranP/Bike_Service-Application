@@ -1,8 +1,6 @@
-// src/components/AddServiceForm.jsx
-
 import React, { useState, useEffect } from "react";
 import axios from "../api/axios";
-import "../styles/AddServiceForm.css"; // Optional styling
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function AddServiceForm({ service, onSuccess, onCancel }) {
   const [form, setForm] = useState({
@@ -35,60 +33,80 @@ function AddServiceForm({ service, onSuccess, onCancel }) {
 
     try {
       if (service) {
-        // PUT: Update existing service
         await axios.put(`/services/${service._id}`, {
           ...form,
           price: parseFloat(form.price),
         });
-        alert("Service updated!");
+        alert("✅ Service updated!");
       } else {
-        // POST: Create new service
         await axios.post("/services", {
           ...form,
           price: parseFloat(form.price),
         });
-        alert("New service added!");
+        alert("✅ New service added!");
       }
 
-      onSuccess(); // Reload service list
+      onSuccess();
     } catch (err) {
       console.error(err);
-      alert("Error saving service");
+      alert("❌ Error saving service");
     }
   };
 
   return (
-    <div className="modal-overlay">
-      <form onSubmit={handleSubmit} className="modal-content">
-        <h3>{service ? "Edit Service" : "Add New Service"}</h3>
+    <div className="modal fade show d-block" tabIndex="-1" role="dialog" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+      <div className="modal-dialog" role="document">
+        <div className="modal-content">
+          <form onSubmit={handleSubmit}>
+            <div className="modal-header">
+              <h5 className="modal-title">{service ? "Edit Service" : "Add New Service"}</h5>
+              <button type="button" className="btn-close" onClick={onCancel}></button>
+            </div>
+            <div className="modal-body">
+              <div className="mb-3">
+                <label className="form-label">Service Name</label>
+                <input
+                  name="name"
+                  className="form-control"
+                  placeholder="Service Name"
+                  value={form.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-        <input
-          name="name"
-          placeholder="Service Name"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="description"
-          placeholder="Description"
-          value={form.description}
-          onChange={handleChange}
-        />
-        <input
-          name="price"
-          type="number"
-          placeholder="Price"
-          value={form.price}
-          onChange={handleChange}
-          required
-        />
+              <div className="mb-3">
+                <label className="form-label">Description</label>
+                <input
+                  name="description"
+                  className="form-control"
+                  placeholder="Description"
+                  value={form.description}
+                  onChange={handleChange}
+                />
+              </div>
 
-        <div className="form-buttons">
-          <button type="submit">💾 Save</button>
-          <button type="button" onClick={onCancel}>❌ Cancel</button>
+              <div className="mb-3">
+                <label className="form-label">Price ₹</label>
+                <input
+                  name="price"
+                  type="number"
+                  className="form-control"
+                  placeholder="Price"
+                  value={form.price}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="modal-footer">
+              <button type="submit" className="btn btn-primary">💾 Save</button>
+              <button type="button" className="btn btn-secondary" onClick={onCancel}>❌ Cancel</button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

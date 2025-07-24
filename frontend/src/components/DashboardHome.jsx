@@ -1,7 +1,6 @@
 // src/components/DashboardHome.jsx
 
 import React, { useEffect, useState } from "react";
-import "../styles/AdminDashboard.css";
 import axios from "../api/axios";
 
 function DashboardHome() {
