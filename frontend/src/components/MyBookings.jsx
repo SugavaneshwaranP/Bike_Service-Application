@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../api/axios";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function MyBookings() {
   const [bookings, setBookings] = useState([]);
@@ -11,39 +11,53 @@ function MyBookings() {
       axios
         .get(`/bookings/user/${userId}`)
         .then((res) => setBookings(res.data))
-        .catch(() => alert("Failed to fetch your bookings"));
+        .catch(() => alert("❌ Failed to fetch your bookings"));
     }
   }, [userId]);
 
   return (
-    <div className="my-bookings">
-      <h2>📖 My Bookings</h2>
+    <div className="container mt-4">
+      <h2 className="mb-4">📖 My Bookings</h2>
 
       {bookings.length === 0 ? (
-        <p>No bookings yet.</p>
+        <div className="alert alert-warning">You have no bookings yet.</div>
       ) : (
-        <table className="bookings-table">
-          <thead>
-            <tr>
-              <th>Booking ID</th>
-              <th>Services</th>
-              <th>Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookings.map((b) => (
-              <tr key={b._id}>
-                <td>{b._id}</td>
-                <td>
-                  {(b.services || []).map((s) => s.serviceName).join(", ")}
-                </td>
-                <td>{new Date(b.bookingDate).toLocaleDateString()}</td>
-                <td>{b.status}</td>
+        <div className="table-responsive">
+          <table className="table table-striped table-bordered">
+            <thead className="table-dark">
+              <tr>
+                <th>Booking ID</th>
+                <th>Services</th>
+                <th>Date</th>
+                <th>Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {bookings.map((b) => (
+                <tr key={b._id}>
+                  <td>{b._id}</td>
+                  <td>
+                    {(b.services || []).map((s) => s.name).join(", ")}
+                  </td>
+                  <td>{new Date(b.bookingDate).toLocaleDateString()}</td>
+                  <td>
+                    <span
+                      className={`badge ${
+                        b.status === "PENDING"
+                          ? "bg-warning text-dark"
+                          : b.status === "READY"
+                          ? "bg-info"
+                          : "bg-success"
+                      }`}
+                    >
+                      {b.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

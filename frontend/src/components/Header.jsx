@@ -1,12 +1,11 @@
-// src/components/Header.jsx
-
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Header() {
   return (
-    <div className="admin-header">
-      <h1>Welcome, Service Owner</h1>
-    </div>
+    <nav className="navbar navbar-dark bg-dark px-4">
+      <span className="navbar-brand mb-0 h1">🚀 Welcome, Service Owner</span>
+    </nav>
   );
 }
 

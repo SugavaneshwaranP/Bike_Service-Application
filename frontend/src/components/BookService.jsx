@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../api/axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function BookService() {
   const [services, setServices] = useState([]);
@@ -56,52 +57,61 @@ function BookService() {
   };
 
   return (
-    <div className="book-service">
-      <h2>📅 Book a Bike Service</h2>
+    <div className="container mt-4">
+      <h2 className="mb-4 text-primary">📅 Book a Bike Service</h2>
 
-      <form onSubmit={handleSubmit} className="booking-form">
-        <label>Select Services:</label>
-        <div className="service-options">
-          {services.map((s) => (
-            <div key={s._id} className="service-checkbox">
-              <input
-                type="checkbox"
-                id={`service-${s._id}`}
-                checked={selectedServices.includes(s._id)}
-                onChange={() => toggleService(s._id)}
-              />
-              <label htmlFor={`service-${s._id}`}>
-                {s.serviceName} - ₹{s.price}
-              </label>
-            </div>
-          ))}
+      <form onSubmit={handleSubmit} className="card p-4 shadow-sm">
+        <div className="mb-3">
+          <label className="form-label fw-bold">Select Services:</label>
+          <div className="row">
+            {services.map((s) => (
+              <div className="col-md-6 mb-2" key={s._id}>
+                <div className="form-check">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id={`service-${s._id}`}
+                    checked={selectedServices.includes(s._id)}
+                    onChange={() => toggleService(s._id)}
+                  />
+                  <label className="form-check-label" htmlFor={`service-${s._id}`}>
+                    {s.name} - ₹{s.price}
+                  </label>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {selectedServices.length > 0 && (
-          <div className="selected-services-preview">
-            <h4>🧾 Selected Services:</h4>
-            <ul>
+          <div className="mb-3">
+            <h5>🧾 Selected Services:</h5>
+            <ul className="list-group">
               {services
                 .filter((s) => selectedServices.includes(s._id))
                 .map((s) => (
-                  <li key={s._id}>
-                    {s.serviceName} - ₹{s.price}
+                  <li className="list-group-item d-flex justify-content-between align-items-center" key={s._id}>
+                    {s.name}
+                    <span className="badge bg-primary">₹{s.price}</span>
                   </li>
                 ))}
             </ul>
           </div>
         )}
 
-        <label htmlFor="bookingDate">Choose Date:</label>
-        <input
-          type="date"
-          id="bookingDate"
-          value={bookingDate}
-          onChange={(e) => setBookingDate(e.target.value)}
-          required
-        />
+        <div className="mb-3">
+          <label htmlFor="bookingDate" className="form-label fw-bold">Choose Date:</label>
+          <input
+            type="date"
+            id="bookingDate"
+            className="form-control"
+            value={bookingDate}
+            onChange={(e) => setBookingDate(e.target.value)}
+            required
+          />
+        </div>
 
-        <button type="submit" className="book-btn">
+        <button type="submit" className="btn btn-success w-100">
           ✅ Confirm Booking
         </button>
       </form>

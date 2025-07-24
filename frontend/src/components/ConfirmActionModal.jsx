@@ -1,21 +1,31 @@
-// src/components/ConfirmActionModal.jsx
-
 import React from "react";
- // optional external CSS file
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function ConfirmActionModal({ message, onConfirm, onCancel }) {
   return (
-    <div className="confirm-modal-overlay" role="dialog" aria-modal="true">
-      <div className="confirm-modal-content">
-        <h3>Confirmation</h3>
-        <p>{message}</p>
-        <div className="confirm-modal-buttons">
-          <button className="btn-confirm" onClick={onConfirm}>
-            ✅ Yes
-          </button>
-          <button className="btn-cancel" onClick={onCancel}>
-            ❌ No
-          </button>
+    <div
+      className="modal fade show d-block"
+      tabIndex="-1"
+      role="dialog"
+      aria-modal="true"
+      style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+    >
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Confirmation</h5>
+          </div>
+          <div className="modal-body">
+            <p>{message}</p>
+          </div>
+          <div className="modal-footer">
+            <button className="btn btn-success" onClick={onConfirm}>
+              ✅ Yes
+            </button>
+            <button className="btn btn-danger" onClick={onCancel}>
+              ❌ No
+            </button>
+          </div>
         </div>
       </div>
     </div>
