@@ -6,6 +6,8 @@ import "../styles/ManageServices.css"; // External CSS
 
 function ManageServices() {
   const [services, setServices] = useState([]);
+  const ownerId = localStorage.getItem("userId"); // or whatever key you store
+
 
   const [form, setForm] = useState({
     serviceName: "",
@@ -41,8 +43,8 @@ function ManageServices() {
   const formattedData = {
     ...form,
     price: parseFloat(form.price),
-    ownerId: localStorage.getItem("userId"), // ✅ Inject owner ID
-  };
+  ownerId: ownerId,  // ✅ must include
+    };
 
   try {
     if (editingId) {
