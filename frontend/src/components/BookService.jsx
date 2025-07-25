@@ -6,6 +6,7 @@ function BookService() {
   const [services, setServices] = useState([]);
   const [selectedServices, setSelectedServices] = useState([]);
   const [bookingDate, setBookingDate] = useState("");
+  const [loading, setLoading] = useState(false); // ✅ loading state
 
   const userId = localStorage.getItem("userId");
 
@@ -39,21 +40,27 @@ function BookService() {
       return;
     }
 
-    try {
-      const payload = {
-        customerId: userId,
-        serviceIds: selectedServices,
-        bookingDate,
-      };
+    setLoading(true); // Start loading
 
-      await axios.post("/bookings", payload);
-      alert("✅ Booking placed successfully! ");
-      setSelectedServices([]);
-      setBookingDate("");
-    } catch (err) {
-      console.error("Booking failed", err);
-      alert("❌ Failed to place booking");
-    }
+    setTimeout(async () => {
+      try {
+        const payload = {
+          customerId: userId,
+          serviceIds: selectedServices,
+          bookingDate,
+        };
+
+        await axios.post("/bookings", payload);
+        alert("✅ Booking placed successfully!");
+        setSelectedServices([]);
+        setBookingDate("");
+      } catch (err) {
+        console.error("Booking failed", err);
+        alert("❌ Failed to place booking");
+      } finally {
+        setLoading(false); // Stop loading
+      }
+    }, 3000); // 3-second delay
   };
 
   return (
@@ -110,8 +117,19 @@ function BookService() {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">
-          ✅ Confirm Booking(wait for confirmation)
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={loading}
+        >
+          {loading ? (
+            <>
+              ⏳ Booking in Progress...
+              <span className="spinner-border spinner-border-sm ms-2" role="status" />
+            </>
+          ) : (
+            "✅ Confirm Booking"
+          )}
         </button>
       </form>
     </div>
