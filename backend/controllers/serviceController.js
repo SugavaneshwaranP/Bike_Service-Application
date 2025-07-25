@@ -1,21 +1,18 @@
-const Service = require("../models/Service");
+const Service = require('../models/Service');
 
 exports.createService = async (req, res) => {
-  try {
-    const svc = new Service({
-      serviceName: req.body.serviceName,
-      description: req.body.description,
-      price: req.body.price,
-      ownerId: req.body.ownerId,
-    });
+  console.log("Received service payload:", req.body); // Add this
 
-    await svc.save();
-    res.json(svc);
+  try {
+    const service = new Service(req.body);
+    await service.save();
+    res.status(201).json(service);
   } catch (err) {
     console.error("Error creating service:", err);
-    res.status(500).json({ error: "Failed to create service" });
+    res.status(400).json({ error: err.message });
   }
 };
+
 
 
 exports.updateService = async (req, res) => {

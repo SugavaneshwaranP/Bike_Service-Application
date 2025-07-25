@@ -47,7 +47,7 @@ function BookService() {
       };
 
       await axios.post("/bookings", payload);
-      alert("✅ Booking placed successfully!");
+      alert("✅ Booking placed successfully! ");
       setSelectedServices([]);
       setBookingDate("");
     } catch (err) {
@@ -111,7 +111,7 @@ function BookService() {
         </div>
 
         <button type="submit" className="btn btn-primary">
-          ✅ Confirm Booking
+          ✅ Confirm Booking(wait for confirmation)
         </button>
       </form>
     </div>

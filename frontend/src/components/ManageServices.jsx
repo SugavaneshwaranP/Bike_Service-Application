@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "../api/axios";
-import "bootstrap/dist/css/bootstrap.min.css"; // ✅ Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function ManageServices() {
   const [services, setServices] = useState([]);
-  const [form, setForm] = useState({ name: "", description: "", price: "" });
+  const [form, setForm] = useState({ serviceName: "", description: "", price: "" });
   const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
@@ -26,29 +26,41 @@ function ManageServices() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formattedData = { ...form, price: parseFloat(form.price) };
+    const { serviceName, description, price } = form;
+
+    if (!serviceName || !description || !price) {
+      alert("Please fill all fields");
+      return;
+    }
 
     try {
+      const payload = {
+        serviceName,
+        description,
+        price,
+        ownerId: localStorage.getItem("userId"),
+      };
+
       if (editingId) {
-        await axios.put(`/services/${editingId}`, formattedData);
-        alert("✅ Service updated successfully!");
+        await axios.put(`/services/${editingId}`, payload);
+        alert("✅ Service updated!");
       } else {
-        await axios.post("/services", formattedData);
-        alert("✅ New service added!");
+        await axios.post("/services", payload);
+        alert("✅ Service added!");
       }
 
-      setForm({ name: "", description: "", price: "" });
-      setEditingId(null);
       fetchServices();
+      setForm({ serviceName: "", description: "", price: "" });
+      setEditingId(null);
     } catch (err) {
-      alert("❌ Error while saving service");
-      console.error(err);
+      console.error("Error saving service:", err);
+      alert("❌ Failed to save service");
     }
   };
 
   const handleEdit = (service) => {
     setForm({
-      name: service.name,
+      serviceName: service.serviceName,
       description: service.description,
       price: service.price,
     });
@@ -62,8 +74,8 @@ function ManageServices() {
         alert("🗑️ Service deleted!");
         fetchServices();
       } catch (err) {
+        console.error("Failed to delete service", err);
         alert("❌ Failed to delete service");
-        console.error(err);
       }
     }
   };
@@ -76,10 +88,10 @@ function ManageServices() {
         <div className="col-md-4">
           <input
             type="text"
-            name="name"
+            name="serviceName"
             className="form-control"
             placeholder="Service Name"
-            value={form.name}
+            value={form.serviceName}
             onChange={handleChange}
             required
           />
@@ -127,7 +139,7 @@ function ManageServices() {
           {services.map((s) => (
             <tr key={s._id}>
               <td>{s._id}</td>
-              <td>{s.name}</td>
+              <td>{s.serviceName}</td>
               <td>{s.description}</td>
               <td>₹{s.price}</td>
               <td>
