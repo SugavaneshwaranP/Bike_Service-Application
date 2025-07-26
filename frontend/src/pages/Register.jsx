@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Register() {
   const navigate = useNavigate();
-
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -14,6 +13,7 @@ function Register() {
     role: "CUSTOMER",
     secretCode: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -21,9 +21,11 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (form.role === "ADMIN" && form.secretCode !== "bikeadmin123") {
       alert("❌ Invalid admin secret code");
+      setIsLoading(false);
       return;
     }
 
@@ -41,98 +43,183 @@ function Register() {
     } catch (err) {
       alert("❌ Registration failed. " + (err.response?.data?.message || ""));
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="container d-flex align-items-center justify-content-center min-vh-100 bg-light">
-      <div className="card shadow p-4 w-100" style={{ maxWidth: "450px" }}>
-        <h3 className="text-center mb-3">📝 Register</h3>
+    <div className="min-vh-100 d-flex flex-column" style={{ background: "linear-gradient(to right, #3f3d56, #090320)" }}>
+      {/* Marquee */}
+      <div className="bg-primary text-white py-2 shadow-sm">
+        <marquee behavior="scroll" direction="left" scrollAmount="8">
+          🚲 Book Your Bike Service Online | 🛠️ 24/7 Owner Support | 📍 Track Service Status in Real Time! | 🎉 Exclusive Offers for New Users!
+        </marquee>
+      </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <input
-              name="name"
-              type="text"
-              className="form-control"
-              placeholder="👤 Enter your name"
-              required
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="mb-3">
-            <input
-              name="email"
-              type="email"
-              className="form-control"
-              placeholder="📧 Enter your email"
-              required
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="mb-3">
-            <input
-              name="password"
-              type="password"
-              className="form-control"
-              placeholder="🔒 Enter your password"
-              required
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="mb-3">
-            <input
-              name="mobile"
-              type="text"
-              className="form-control"
-              placeholder="📱 Enter your mobile number"
-              required
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="mb-3">
-            <select
-              name="role"
-              className="form-select"
-              onChange={handleChange}
-              value={form.role}
-            >
-              <option value="CUSTOMER">👨‍🔧 Customer</option>
-              <option value="ADMIN">👨‍💼 Admin</option>
-            </select>
-          </div>
-
-          {form.role === "ADMIN" && (
-            <div className="mb-3">
-              <input
-                name="secretCode"
-                type="text"
-                className="form-control"
-                placeholder="🔐 Enter Admin Secret Code"
-                onChange={handleChange}
+      {/* Register Card */}
+      <div className="container d-flex justify-content-center align-items-center flex-grow-1 py-5">
+        <div className="card shadow-lg rounded-4 overflow-hidden" style={{ maxWidth: "900px", width: "100%" }}>
+          <div className="row g-0">
+            {/* Left Image */}
+            <div className="col-md-6 d-none d-md-block">
+              <img
+                src="/assets/service.jpg"
+                alt="Bike Registration"
+                className="img-fluid h-100"
+                style={{ objectFit: "cover" }}
               />
             </div>
-          )}
 
-          <div className="d-grid gap-2">
-            <button type="submit" className="btn btn-success">
-              ✅ Register
-            </button>
+            {/* Right Form */}
+            <div className="col-md-6 bg-dark text-white p-4 d-flex flex-column justify-content-between">
+              <div>
+                <div className="text-center mb-3">
+                  <img src="/assets/bike.jpg" alt="Logo" className="mb-3 rounded-circle" style={{ width: "70px", height: "70px" }} />
+                  <h4 className="fw-bold text-primary">Create Account</h4>
+                  <p className="small text-muted">Join our bike service community</p>
+                </div>
 
-            <button
-              type="button"
-              className="btn btn-warning"
-              onClick={() => navigate("/")}
-            >
-              ⬅️ Back to Home
-            </button>
+                <form onSubmit={handleSubmit}>
+                  {/* Name */}
+                  <div className="mb-3">
+                    <label className="form-label text-light small">Full Name</label>
+                    <input
+                      name="name"
+                      type="text"
+                      className="form-control"
+                      placeholder="John Doe"
+                      required
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div className="mb-3">
+                    <label className="form-label text-light small">Email Address</label>
+                    <input
+                      name="email"
+                      type="email"
+                      className="form-control"
+                      placeholder="name@example.com"
+                      required
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  {/* Password */}
+                  <div className="mb-3">
+                    <label className="form-label text-light small">Password</label>
+                    <input
+                      name="password"
+                      type="password"
+                      className="form-control"
+                      placeholder="••••••••"
+                      required
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  {/* Mobile */}
+                  <div className="mb-3">
+                    <label className="form-label text-light small">Mobile Number</label>
+                    <input
+                      name="mobile"
+                      type="text"
+                      className="form-control"
+                      placeholder="+91 9876543210"
+                      required
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  {/* Role */}
+                  <div className="mb-3">
+                    <label className="form-label text-light small">Account Type</label>
+                    <select
+                      name="role"
+                      className="form-select"
+                      onChange={handleChange}
+                      value={form.role}
+                    >
+                      <option value="CUSTOMER">👨‍🔧 Customer</option>
+                      <option value="ADMIN">👨‍💼 Admin</option>
+                    </select>
+                  </div>
+
+                  {/* Secret Code */}
+                  {form.role === "ADMIN" && (
+                    <div className="mb-3">
+                      <label className="form-label text-light small">Admin Secret Code</label>
+                      <input
+                        name="secretCode"
+                        type="password"
+                        className="form-control"
+                        placeholder="Enter secret code"
+                        onChange={handleChange}
+                      />
+                    </div>
+                  )}
+
+                  {/* Button */}
+                  <div className="d-grid mt-4">
+                    <button
+                      type="submit"
+                      className="btn btn-primary py-2 mb-3 fw-bold"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                          Registering...
+                        </>
+                      ) : (
+                        <>
+                          <i className="bi bi-person-plus me-2"></i>
+                          Register Now
+                        </>
+                      )}
+                    </button>
+
+
+                     <button
+                    type="button"
+                    className="btn btn-outline-secondary w-100 py-2 mb-3"
+                    onClick={() => navigate("/")}
+                  >
+                    <i className="bi bi-arrow-left me-2"></i>
+                    Back to Home
+                  </button>
+
+
+                  </div>
+                </form>
+              </div>
+
+              {/* Login Redirect */}
+              <div className="text-center pt-3">
+                <p className="small text-muted mb-0">
+                  Already have an account?{" "}
+                  <a
+                    href="#!"
+                    className="text-decoration-none fw-bold text-info"
+                    onClick={() => navigate("/login")}
+                  >
+                    Login here
+                  </a>
+                </p>
+              </div>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
+
+      {/* Footer */}
+      <footer className="bg-dark text-white text-center py-3">
+        <p className="mb-2">© 2025 Smart Bike Service Portal. All Rights Reserved.</p>
+        
+      
+      </footer>
     </div>
   );
 }

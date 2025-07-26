@@ -8,7 +8,7 @@ function Home() {
   return (
     <div className="container-fluid p-0">
       {/* 🚀 Top Scrolling Info Bar */}
-      <div className="bg-primary text-white py-3 shadow-sm">
+      <div className="bg-primary text-white py-2 shadow-sm">
         <marquee behavior="scroll" direction="left" scrollAmount="8">
           🚲 Book Your Bike Service Online | 🛠️ 24/7 Owner Support | 📍 Track Service Status in Real Time! | 🎉 Exclusive Offers for New Users!
         </marquee>
@@ -18,7 +18,7 @@ function Home() {
       <div 
         className="d-flex flex-column align-items-center justify-content-center vh-100 text-center px-3"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80')",
+      backgroundImage: "url('/assets/home.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
@@ -149,11 +149,7 @@ function Home() {
       <div className="bg-dark text-white py-4">
         <div className="container text-center">
           <p className="mb-2">© 2025 Smart Bike Service Portal. All Rights Reserved.</p>
-          <div className="d-flex justify-content-center gap-4">
-            <a href="#" className="text-white">Privacy Policy</a>
-            <a href="#" className="text-white">Terms of Service</a>
-            <a href="#" className="text-white">Contact Us</a>
-          </div>
+          
         </div>
       </div>
     </div>
