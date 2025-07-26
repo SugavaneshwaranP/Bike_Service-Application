@@ -1,0 +1,41 @@
+[{
+  "_id": {
+    "$oid": "6884a79efaa0f4b237f6caeb"
+  },
+  "customer": {
+    "$oid": "6884a77dfaa0f4b237f6cadc"
+  },
+  "services": [
+    {
+      "$oid": "6884a643faa0f4b237f6cac6"
+    }
+  ],
+  "bookingDate": {
+    "$date": "2025-07-31T00:00:00.000Z"
+  },
+  "status": "PENDING",
+  "__v": 0
+},
+
+{
+  "_id": {
+    "$oid": "6884a7fbfaa0f4b237f6caf5"
+  },
+  "customer": {
+    "$oid": "6884a7ddfaa0f4b237f6caee"
+  },
+  "services": [
+    {
+      "$oid": "6884a665faa0f4b237f6cac9"
+    },
+    {
+      "$oid": "6884a6b6faa0f4b237f6cace"
+    }
+  ],
+  "bookingDate": {
+    "$date": "2025-07-31T00:00:00.000Z"
+  },
+  "status": "PENDING",
+  "__v": 0
+}
+]

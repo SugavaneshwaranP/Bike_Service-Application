@@ -1,0 +1,38 @@
+[{
+  "_id": {
+    "$oid": "6884a643faa0f4b237f6cac6"
+  },
+  "serviceName": "WaterWash",
+  "description": "cleaning and washing Vehicle at low cost.",
+  "price": 499,
+  "ownerId": {
+    "$oid": "6884a606faa0f4b237f6cabd"
+  },
+  "__v": 0
+},
+
+{
+  "_id": {
+    "$oid": "6884a665faa0f4b237f6cac9"
+  },
+  "serviceName": "Oil Change",
+  "description": "Changing Oil for Vehicle to drive smoothly.",
+  "price": 399,
+  "ownerId": {
+    "$oid": "6884a606faa0f4b237f6cabd"
+  },
+  "__v": 0
+},
+
+{
+  "_id": {
+    "$oid": "6884a6b6faa0f4b237f6cace"
+  },
+  "serviceName": "General checkup",
+  "description": "Checking Genrally, including tyres,Engines,Sliencers.",
+  "price": 899,
+  "ownerId": {
+    "$oid": "6884a606faa0f4b237f6cabd"
+  },
+  "__v": 0
+}]

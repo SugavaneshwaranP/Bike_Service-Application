@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../api/axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 function ManageServices() {
   const [services, setServices] = useState([]);
@@ -81,80 +82,98 @@ function ManageServices() {
   };
 
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4 text-center">🛠️ Manage Bike Services</h2>
+  <div className="pt-3 " style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
+<div className="ms-lg-3 me-1 p-1 bg-white rounded shadow-sm"
 
-      <form onSubmit={handleSubmit} className="row g-3 mb-4">
-        <div className="col-md-4">
-          <input
-            type="text"
-            name="serviceName"
-            className="form-control"
-            placeholder="Service Name"
-            value={form.serviceName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="col-md-4">
-          <input
-            type="text"
-            name="description"
-            className="form-control"
-            placeholder="Description"
-            value={form.description}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="col-md-2">
-          <input
-            type="number"
-            name="price"
-            className="form-control"
-            placeholder="Price"
-            value={form.price}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="col-md-2 d-grid">
-          <button type="submit" className="btn btn-primary">
-            {editingId ? "Update" : "Add"} Service
-          </button>
-        </div>
-      </form>
+    style={{
+      marginLeft: "250px", // offset for sidebar only
+      marginRight: "10px", // allow slight margin on small screens
+    }}
+  >
+    <h6 className="mb-3 fw-bold text-center text-primary">
+      <i className="bi bi-tools me-2"></i>Manage Bike Services
+    </h6>
 
-      <table className="table table-striped table-hover table-bordered">
+    {/* Form Section */}
+    <form onSubmit={handleSubmit} className="row gx-2 gy-2 mb-3">
+      <div className="col-6 col-md-3">
+        <input
+          type="text"
+          name="serviceName"
+          className="form-control form-control-sm"
+          placeholder="Service Name"
+          value={form.serviceName}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div className="col-6 col-md-3">
+        <input
+          type="text"
+          name="description"
+          className="form-control form-control-sm"
+          placeholder="Description"
+          value={form.description}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div className="col-6 col-md-2">
+        <input
+          type="number"
+          name="price"
+          className="form-control form-control-sm"
+          placeholder="Price"
+          value={form.price}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div className="col-6 col-md-2 d-grid">
+        <button type="submit" className="btn btn-sm btn-primary">
+          {editingId ? "Update" : "Add"} Service
+        </button>
+      </div>
+    </form>
+
+    {/* Table Section */}
+    <div className="table-responsive">
+      <table className="table table-sm table-bordered text-center align-middle" style={{ fontSize: "0.75rem" }}>
         <thead className="table-dark">
           <tr>
-            <th>ID</th>
-            <th>Service</th>
-            <th>Description</th>
-            <th>Price (₹)</th>
-            <th>Actions</th>
+            <th style={{ width: "10%" }}>ID</th>
+            <th style={{ width: "20%" }}>Service</th>
+            <th style={{ width: "35%" }}>Description</th>
+            <th style={{ width: "15%" }}>Price</th>
+            <th style={{ width: "20%" }}>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {services.map((s) => (
-            <tr key={s._id}>
-              <td>{s._id}</td>
-              <td>{s.serviceName}</td>
-              <td>{s.description}</td>
-              <td>₹{s.price}</td>
-              <td>
-                <button className="btn btn-sm btn-warning me-2" onClick={() => handleEdit(s)}>
-                  ✏️ Edit
-                </button>
-                <button className="btn btn-sm btn-danger" onClick={() => handleDelete(s._id)}>
-                  🗑️ Delete
-                </button>
-              </td>
+          {services.length > 0 ? (
+            services.map((s) => (
+              <tr key={s._id}>
+                <td className="text-break">{s._id.slice(-6)}</td>
+                <td className="text-break">{s.serviceName}</td>
+                <td className="text-break">{s.description}</td>
+                <td>₹{s.price}</td>
+                <td>
+                  <button className="btn btn-sm btn-warning me-1" onClick={() => handleEdit(s)}>✏️</button>
+                  <button className="btn btn-sm btn-danger" onClick={() => handleDelete(s._id)}>🗑️</button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5" className="text-muted">No services available</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
+  </div>
+</div>
+
+
   );
 }
 

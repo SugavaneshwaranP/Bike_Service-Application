@@ -1,0 +1,33 @@
+
+[{
+  "_id": {
+    "$oid": "6884a606faa0f4b237f6cabd"
+  },
+  "name": "John Admin",
+  "email": "bikeservice40@gmail.com",
+  "password": "$2b$10$0nL30S3e5uKIZ6peCrJvh.rTHggCu13Jbb3aRVi.e.Le/hwadVU62, Actual Password: admin123",
+  "mobile": "+919010293847",
+  "role": "ADMIN",
+  "__v": 0
+},{
+  "name": "Sugavanesh",
+  "email": "sugavanesh@gmail.com",
+  "password": "$2b$10$vWtPrHK/R.IMvRu7jbxS7./yAxmU/QOqZnBHtgNyva0CW2CRhog2u , Actual password: user123",
+  "mobile": "+91 9010208081",
+  "role": "CUSTOMER",
+  "__v": 0
+}
+,
+{
+  "_id": {
+    "$oid": "6884a7ddfaa0f4b237f6caee"
+  },
+  "name": "User",
+  "email": "user@example.com",
+  "password": "$2b$10$8fJYlowzuGIrA32oS53q1.SgZtfYDHJZo.cFVQToO.BMAZzuYRl22 , Actual Password: user123",
+  "mobile": "+913456788765",
+  "role": "CUSTOMER",
+  "__v": 0
+}
+
+]

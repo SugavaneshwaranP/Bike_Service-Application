@@ -35,7 +35,7 @@ function Home() {
           }}
         >
           <img 
-            src="https://images.unsplash.com/photo-1541260369992-b964b417c4ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" 
+            src="./../assets/bike.jpg" 
             alt="Bike Service Logo" 
             className="img-fluid mx-auto mb-4"
             style={{ 

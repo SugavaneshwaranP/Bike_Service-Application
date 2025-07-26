@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "../api/axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import ManageServices from "../components/ManageServices";
+import ManageBookings from "../components/ManageBookings";
 
 function AdminDashboard() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -123,96 +125,63 @@ function AdminDashboard() {
           paddingTop: "80px",
           minHeight: "100vh",
           overflowX: "hidden",
-          backgroundImage: "url('/assets/admin.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
+          backgroundColor: "#f8f9fa",
         }}
       >
         <style>
           {`
             .card {
               transition: transform 0.3s ease, box-shadow 0.3s ease;
-              backdrop-filter: blur(5px);
-              background-color: rgba(255, 255, 255, 0.9);
-              border: none;
+              background-color: #ffffff;
+              border: 1px solid #dee2e6;
             }
             .card:hover {
-              transform: scale(1.05);
-              box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+              transform: scale(1.03);
+              box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             }
             .stat-icon {
-              font-size: 2.5rem;
-            }
-            body {
-              overflow-x: hidden;
+              font-size: 2rem;
             }
           `}
         </style>
 
         {activePage === "dashboard" && (
-          <>
-          
+          <div className="row g-4 mt-2">
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+              <div className="card text-dark text-center p-3">
+                <i className="bi bi-tools text-primary stat-icon mb-2"></i>
+                <h5 className="text-primary mb-1">{totalServices}</h5>
+                <p className="text-muted small mb-0">Total Services</p>
+              </div>
+            </div>
 
-<div className="row g-2">
-  <div className="col-12 col-sm-9 col-md-4 col-lg-3">
-    <div
-      className="card text-dark text-center p-3"
-      style={{ minHeight: "140px", maxWidth: "230px", margin: "180px auto" }}
-    >
-      <i
-        className="bi bi-tools text-primary mb-2"
-        style={{ fontSize: "1.6rem" }}
-      ></i>
-      <h5 className="text-primary mb-1">{totalServices}</h5>
-      <p className="text-muted small mb-0">Total Services</p>
-    </div>
-  </div>
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+              <div className="card text-dark text-center p-3">
+                <i className="bi bi-hourglass-split text-warning stat-icon mb-2"></i>
+                <h5 className="text-warning mb-1">{pendingBookings}</h5>
+                <p className="text-muted small mb-0">Pending Bookings</p>
+              </div>
+            </div>
 
-  <div className="col-12 col-sm-6 col-md-4 col-lg-3">
-    <div
-      className="card text-dark text-center p-3"
-      style={{ minHeight: "140px", maxWidth: "230px", margin: "180px auto" }}
-    >
-      <i
-        className="bi bi-hourglass-split text-warning mb-2"
-        style={{ fontSize: "1.6rem" }}
-      ></i>
-      <h5 className="text-warning mb-1">{pendingBookings}</h5>
-      <p className="text-muted small mb-0">Pending Bookings</p>
-    </div>
-  </div>
-
-  <div className="col-12 col-sm-6 col-md-4 col-lg-3">
-    <div
-      className="card text-dark text-center p-3"
-      style={{ minHeight: "140px", maxWidth: "230px", margin: "180px auto" }}
-    >
-      <i
-        className="bi bi-check-circle text-success mb-2"
-        style={{ fontSize: "1.6rem" }}
-      ></i>
-      <h5 className="text-success mb-1">{readyBookings}</h5>
-      <p className="text-muted small mb-0">Ready for Delivery</p>
-    </div>
-  </div>
-</div>
-
-
-
-
-          </>
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+              <div className="card text-dark text-center p-3">
+                <i className="bi bi-check-circle text-success stat-icon mb-2"></i>
+                <h5 className="text-success mb-1">{readyBookings}</h5>
+                <p className="text-muted small mb-0">Ready for Delivery</p>
+              </div>
+            </div>
+          </div>
         )}
 
         {activePage === "services" && (
-          <div className="text-center text-muted fs-4 mt-5">
-            🧰 Manage Services - Coming Soon
+          <div className="mt-4">
+            <ManageServices />
           </div>
         )}
 
         {activePage === "bookings" && (
-          <div className="text-center text-muted fs-4 mt-5">
-            📅 Manage Bookings - Coming Soon
+          <div className="text-center text-muted fs-5 mt-5">
+            <ManageBookings />
           </div>
         )}
       </div>
