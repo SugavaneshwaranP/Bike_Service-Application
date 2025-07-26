@@ -1,0 +1,8 @@
+{
+  "_id": "ObjectId",
+  "customer_id": "ObjectId → users._id",
+  "booking_date": "Date (yyyy-MM-dd)",
+  "status": "String ('PENDING' | 'READY' | 'COMPLETED')",
+  "services": ["Array of ObjectId → bike_services._id"],
+  "created_at": "Date"
+}

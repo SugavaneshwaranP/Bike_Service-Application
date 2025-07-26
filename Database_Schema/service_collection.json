@@ -1,0 +1,7 @@
+{
+  "_id": "ObjectId",
+  "name": "String",
+  "description": "String",
+  "price": "Number (Decimal)",
+  "owner_id": "ObjectId → users._id"
+}
