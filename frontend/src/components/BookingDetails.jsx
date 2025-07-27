@@ -35,26 +35,26 @@ function BookingDetails({ booking, onClose }) {
         <div className="modal-content">
           {/* Modal header with title and close button */}
           <div className="modal-header">
-            <h5 className="modal-title">📋 Booking Details</h5>
+            <h5 className="modal-title"> Booking Details</h5>
             <button type="button" className="btn-close" onClick={onClose}></button>
           </div>
 
           {/* Modal body with booking data */}
           <div className="modal-body">
             {/* Display booking ID */}
-            <p><strong>📄 Booking ID:</strong> {fullBooking._id}</p>
+            <p><strong> Booking ID:</strong> {fullBooking._id}</p>
             {/* Display customer name (using optional chaining to prevent error) */}
-            <p><strong>👤 Customer:</strong> {fullBooking.customer?.name}</p>
+            <p><strong> Customer:</strong> {fullBooking.customer?.name}</p>
             {/* Display customer email */}
-            <p><strong>📧 Email:</strong> {fullBooking.customer?.email}</p>
+            <p><strong> Email:</strong> {fullBooking.customer?.email}</p>
             {/* Format and display booking date */}
-            <p><strong>📅 Date:</strong> {new Date(fullBooking.bookingDate).toLocaleDateString()}</p>
+            <p><strong> Date:</strong> {new Date(fullBooking.bookingDate).toLocaleDateString()}</p>
             {/* Display booking status */}
-            <p><strong>📌 Status:</strong> {fullBooking.status}</p>
+            <p><strong> Status:</strong> {fullBooking.status}</p>
 
             <hr />
             {/* Section heading for services list */}
-            <h6>🛠️ Services</h6>
+            <h6> Services</h6>
             <ul className="list-group">
               {/* Loop through services and render each one */}
               {fullBooking.services?.map((s, idx) => (
@@ -68,7 +68,7 @@ function BookingDetails({ booking, onClose }) {
 
           {/* Modal footer with close button */}
           <div className="modal-footer">
-            <button className="btn btn-secondary" onClick={onClose}>❌ Close</button>
+            <button className="btn btn-secondary" onClick={onClose}> Close</button>
           </div>
         </div>
       </div>

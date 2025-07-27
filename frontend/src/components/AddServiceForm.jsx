@@ -51,20 +51,20 @@ function AddServiceForm({ service, onSuccess, onCancel }) {
           ...form,
           price: parseFloat(form.price), // Convert price to float
         });
-        alert("✅ Service updated!"); // Success alert
+        alert(" Service updated!"); // Success alert
       } else {
         // Else, send POST request to add new service
         await axios.post("/services", {
           ...form,
           price: parseFloat(form.price), // Convert price to float
         });
-        alert("✅ New service added!"); // Success alert
+        alert(" New service added!"); // Success alert
       }
 
       onSuccess(); // Call parent's success callback to refresh list or close form
     } catch (err) {
       console.error(err); // Log error in console
-      alert("❌ Error saving service"); // Error alert
+      alert(" Error saving service"); // Error alert
     }
   };
 
@@ -127,8 +127,8 @@ function AddServiceForm({ service, onSuccess, onCancel }) {
 
             {/* Modal footer with Save and Cancel buttons */}
             <div className="modal-footer">
-              <button type="submit" className="btn btn-primary">💾 Save</button>
-              <button type="button" className="btn btn-secondary" onClick={onCancel}>❌ Cancel</button>
+              <button type="submit" className="btn btn-primary"> Save</button>
+              <button type="button" className="btn btn-secondary" onClick={onCancel}> Cancel</button>
             </div>
           </form>
         </div>

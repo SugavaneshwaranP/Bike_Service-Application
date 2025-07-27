@@ -44,10 +44,10 @@ function ManageServices() {
 
       if (editingId) {
         await axios.put(`/services/${editingId}`, payload);
-        alert("✅ Service updated!");
+        alert(" Service updated!");
       } else {
         await axios.post("/services", payload);
-        alert("✅ Service added!");
+        alert(" Service added!");
       }
 
       fetchServices();
@@ -55,7 +55,7 @@ function ManageServices() {
       setEditingId(null);
     } catch (err) {
       console.error("Error saving service:", err);
-      alert("❌ Failed to save service");
+      alert(" Failed to save service");
     }
   };
 
@@ -76,7 +76,7 @@ function ManageServices() {
         fetchServices();
       } catch (err) {
         console.error("Failed to delete service", err);
-        alert("❌ Failed to delete service");
+        alert(" Failed to delete service");
       }
     }
   };

@@ -30,7 +30,7 @@ function CustomerDashboard() {
               className={`btn btn-${activePage === "mybookings" ? "primary" : "outline-light"}`}
               onClick={() => setActivePage("mybookings")}
             >
-              📄 My Bookings
+               My Bookings
             </button>
 
             {/* Logout Button: Redirects to homepage */}
@@ -38,7 +38,7 @@ function CustomerDashboard() {
               className="btn btn-outline-danger mt-3"
               onClick={() => window.location.href = "/"}
             >
-              🚪 Logout
+               Logout
             </button>
           </div>
         </div>

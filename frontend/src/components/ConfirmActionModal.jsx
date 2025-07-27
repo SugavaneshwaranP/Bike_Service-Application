@@ -31,10 +31,10 @@ function ConfirmActionModal({ message, onConfirm, onCancel }) {
           {/* Footer section with Yes and No buttons */}
           <div className="modal-footer">
             <button className="btn btn-success" onClick={onConfirm}>
-              ✅ Yes {/* Calls the onConfirm function when clicked */}
+               Yes {/* Calls the onConfirm function when clicked */}
             </button>
             <button className="btn btn-danger" onClick={onCancel}>
-              ❌ No {/* Calls the onCancel function when clicked */}
+               No {/* Calls the onCancel function when clicked */}
             </button>
           </div>
 

@@ -12,7 +12,7 @@ function Home() {
       {/*  Scrolling Information Bar at Top */}
       <div className="bg-primary text-white py-2 shadow-sm">
         <marquee behavior="scroll" direction="left" scrollAmount="8">
-          🚲 Book Your Bike Service Online | 🛠️ 24/7 Owner Support |  Track Service Status in Real Time! |  Exclusive Offers for New Users!
+           Book Your Bike Service Online |  24/7 Owner Support |  Track Service Status in Real Time! |  Exclusive Offers for New Users!
         </marquee>
       </div>
 
@@ -54,7 +54,7 @@ function Home() {
 
           {/* App Title */}
           <h1 className="mb-4 text-primary" style={{ fontSize: "2.5rem", fontWeight: "bold" }}>
-            Smart Bike Service Portal
+            Smart Bike Service
           </h1>
 
           {/* App Description */}
@@ -108,7 +108,7 @@ function Home() {
       <div className="py-5 bg-light">
         <div className="container">
           <h2 className="text-center mb-5 text-primary" style={{ fontWeight: "bold" }}>
-            Why Choose Us?
+            WHY CHOOSE US?
           </h2>
 
           {/* Feature Cards */}
@@ -117,7 +117,7 @@ function Home() {
             <div className="col-md-4">
               <div className="card h-100 border-0 shadow-sm text-center p-4">
                 <img 
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" 
+                  src="./../assets/admin.png" 
                   alt="Fast Service"
                   className="img-fluid mx-auto mb-3"
                   style={{ maxWidth: "100px", borderRadius: "10px" }}
@@ -133,7 +133,7 @@ function Home() {
             <div className="col-md-4">
               <div className="card h-100 border-0 shadow-sm text-center p-4">
                 <img 
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" 
+                  src="./../assets/image1.png" 
                   alt="Real-Time Tracking"
                   className="img-fluid mx-auto mb-3"
                   style={{ maxWidth: "100px", borderRadius: "10px" }}
@@ -149,7 +149,7 @@ function Home() {
             <div className="col-md-4">
               <div className="card h-100 border-0 shadow-sm text-center p-4">
                 <img 
-                  src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" 
+                  src="./../assets/image.png"
                   alt="24/7 Support"
                   className="img-fluid mx-auto mb-3"
                   style={{ maxWidth: "100px", borderRadius: "10px" }}

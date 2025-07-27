@@ -50,7 +50,7 @@ function BookService() {
 
     // Check if both date and at least one service is selected
     if (!bookingDate || selectedServices.length === 0) {
-      alert("❌ Please select at least one service and a date.");
+      alert(" Please select at least one service and a date.");
       return;
     }
 
@@ -67,14 +67,14 @@ function BookService() {
         // POST request to create a new booking
         await axios.post("/bookings", payload);
 
-        alert("✅ Booking placed successfully!");
+        alert(" Booking placed successfully!");
 
         // Clear selections after successful booking
         setSelectedServices([]);
         setBookingDate("");
       } catch (err) {
         console.error("Booking failed", err);
-        alert("❌ Failed to place booking");
+        alert(" Failed to place booking");
       } finally {
         setLoading(false); // Stop loading spinner
       }
@@ -96,7 +96,7 @@ function BookService() {
       <div className="container">
         <div className="bg-white bg-opacity-75 p-4 rounded shadow-sm">
           <h4 className="text-center fw-bold text-primary mb-4">
-            📅 Book a Bike Service
+             Book a Bike Service
           </h4>
 
           {/* Booking Form */}
@@ -131,7 +131,7 @@ function BookService() {
             {/* Display Selected Services Below as a List */}
             {selectedServices.length > 0 && (
               <div className="mb-4">
-                <h6 className="fw-bold text-success">🧾 Selected Services:</h6>
+                <h6 className="fw-bold text-success"> Selected Services:</h6>
                 <ul className="list-group">
                   {services
                     .filter((s) => selectedServices.includes(s._id)) // Filter only selected ones
@@ -169,7 +169,7 @@ function BookService() {
               >
                 {loading ? (
                   <>
-                    ⏳ Booking in Progress...
+                     Booking in Progress...
                     {/* Spinner while waiting */}
                     <span
                       className="spinner-border spinner-border-sm ms-2"
@@ -177,7 +177,7 @@ function BookService() {
                     />
                   </>
                 ) : (
-                  "✅ Confirm Booking"
+                  " Confirm Booking"
                 )}
               </button>
             </div>
