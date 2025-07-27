@@ -3,7 +3,7 @@ const User = require("../models/User");
 const Service = require("../models/Service");
 const { sendMail } = require("../utils/sendMail");
 
-// ✅ Create a new booking
+//  Create a new booking
 exports.createBooking = async (req, res) => {
   try {
     const { customerId, serviceIds, bookingDate } = req.body;
@@ -38,7 +38,7 @@ exports.createBooking = async (req, res) => {
   }
 };
 
-// ✅ Get all bookings (for Admin)
+//  Get all bookings (for Admin)
 exports.getAllBookings = async (req, res) => {
   try {
     const bookings = await Booking.find().populate("customer services");
@@ -48,7 +48,7 @@ exports.getAllBookings = async (req, res) => {
   }
 };
 
-// ✅ Get bookings by specific customer ID (for Customer view)
+//  Get bookings by specific customer ID (for Customer view)
 exports.getBookingsByCustomer = async (req, res) => {
   try {
     const bookings = await Booking.find({ customer: req.params.customerId }).populate("services");
@@ -58,7 +58,7 @@ exports.getBookingsByCustomer = async (req, res) => {
   }
 };
 
-// ✅ Update booking status (e.g., from PENDING to READY)
+//  Update booking status (e.g., from PENDING to READY)
 exports.updateStatus = async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id).populate("customer");

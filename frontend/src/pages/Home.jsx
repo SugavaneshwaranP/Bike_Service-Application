@@ -12,7 +12,7 @@ function Home() {
       {/*  Scrolling Information Bar at Top */}
       <div className="bg-primary text-white py-2 shadow-sm">
         <marquee behavior="scroll" direction="left" scrollAmount="8">
-          🚲 Book Your Bike Service Online | 🛠️ 24/7 Owner Support | 📍 Track Service Status in Real Time! | 🎉 Exclusive Offers for New Users!
+          🚲 Book Your Bike Service Online | 🛠️ 24/7 Owner Support |  Track Service Status in Real Time! |  Exclusive Offers for New Users!
         </marquee>
       </div>
 

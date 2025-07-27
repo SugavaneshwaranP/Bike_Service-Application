@@ -90,12 +90,12 @@ function ManageServices() {
       marginRight: "10px", // allow slight margin on small screens
     }}
   >
-    <h6 className="mb-3 fw-bold text-center text-primary">
-      <i className="bi bi-tools me-2"></i>Manage Bike Services
-    </h6>
+    <h4 className="mb-3 fw-bold text-center text-primary">
+      <i className="bi bi-tools me-2"></i>Manage Bike Services 👉
+    </h4>
 
     {/* Form Section */}
-    <form onSubmit={handleSubmit} className="row gx-2 gy-2 mb-3">
+    <form onSubmit={handleSubmit} className="row gx-2 gy-2 mb-3"style={{ fontSize: "0.90rem" }}>
       <div className="col-6 col-md-3">
         <input
           type="text"
@@ -138,7 +138,7 @@ function ManageServices() {
 
     {/* Table Section */}
     <div className="table-responsive">
-      <table className="table table-sm table-bordered text-center align-middle" style={{ fontSize: "0.75rem" }}>
+      <table className="table table-sm table-bordered text-center align-middle" style={{ fontSize: "0.90rem" }}>
         <thead className="table-dark">
           <tr>
             <th style={{ width: "10%" }}>ID</th>

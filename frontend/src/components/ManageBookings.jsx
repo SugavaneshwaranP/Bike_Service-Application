@@ -5,14 +5,24 @@ import ConfirmActionModal from "./ConfirmActionModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function ManageBookings() {
+  // State to store all bookings
   const [bookings, setBookings] = useState([]);
+
+  // State to store the currently selected booking for viewing details
   const [selectedBooking, setSelectedBooking] = useState(null);
+
+  // State to manage confirmation modal for status update
   const [confirmAction, setConfirmAction] = useState(null);
 
+  // State to indicate which booking is being updated (for showing spinner)
+  const [updatingId, setUpdatingId] = useState(null);
+
+  // Fetch bookings once the component is mounted
   useEffect(() => {
     fetchBookings();
   }, []);
 
+  // Function to fetch all bookings from backend
   const fetchBookings = async () => {
     try {
       const res = await axios.get("/bookings");
@@ -23,36 +33,40 @@ function ManageBookings() {
     }
   };
 
+  // Function to update booking status (READY or COMPLETED)
   const handleStatusUpdate = async (bookingId, newStatus) => {
+    setUpdatingId(bookingId); // Show spinner for the button being clicked
+
     try {
       await axios.put(`/bookings/${bookingId}/status`, { status: newStatus });
       alert(`Booking marked as ${newStatus}`);
-      fetchBookings();
+      fetchBookings(); // Refresh bookings after update
     } catch (err) {
       alert("Failed to update status");
       console.error(err);
     } finally {
-      setConfirmAction(null);
+      setUpdatingId(null);    // Reset spinner state
+      setConfirmAction(null); // Close confirmation modal
     }
   };
 
   return (
-   <div
-  className="pt-3"
-  style={{
-    paddingLeft: "2px", // enough to avoid overlap with sidebar
-    paddingRight: "10px",
-    backgroundColor: "#f8f9fa",
-    minHeight: "100vh",
-    fontSize: "0.85rem",
-  }}
->
-
+    <div
+      className="pt-3"
+      style={{
+        paddingLeft: "2px",
+        paddingRight: "10px",
+        backgroundColor: "#ccd7e3ff",
+        minHeight: "100vh",
+        fontSize: "0.85rem",
+      }}
+    >
       <div className="bg-white p-3 rounded shadow-sm">
-        <h6 className="mb-3 text-primary text-center fw-bold">
-          📋 Manage Bookings
-        </h6>
+        <h4 className="mb-3 text-primary text-center fw-bold">
+          Manage Bookings 👉
+        </h4>
 
+        {/* Scrollable table to prevent overflow */}
         <div className="table-responsive">
           <table className="table table-sm table-bordered text-center align-middle">
             <thead className="table-dark">
@@ -70,7 +84,12 @@ function ManageBookings() {
                 <tr key={b._id}>
                   <td className="text-break">{b._id.slice(-6)}</td>
                   <td className="text-break">{b.customer?.name || "N/A"}</td>
-                  <td className="text-break">{b.services.map((s) => s.name).join(", ")}</td>
+
+                  {/* Display all services joined by comma */}
+                  <td className="text-break">
+                    {b.services.map((s) => s.serviceName).join(", ")}
+                  </td>
+
                   <td>
                     <span
                       className={`badge fw-semibold ${
@@ -84,8 +103,12 @@ function ManageBookings() {
                       {b.status}
                     </span>
                   </td>
+
+                  {/* Display formatted date */}
                   <td>{new Date(b.bookingDate).toLocaleDateString()}</td>
+
                   <td>
+                    {/* View button */}
                     <button
                       className="btn btn-sm btn-outline-primary me-1"
                       onClick={() => setSelectedBooking(b)}
@@ -93,30 +116,56 @@ function ManageBookings() {
                       View
                     </button>
 
+                    {/* Ready button (if status is PENDING) */}
                     {b.status === "PENDING" && (
                       <button
                         className="btn btn-sm btn-outline-success me-1"
+                        disabled={updatingId === b._id}
                         onClick={() =>
                           setConfirmAction({ id: b._id, status: "READY" })
                         }
                       >
-                        Ready
+                        {updatingId === b._id ? (
+                          <>
+                            <span
+                              className="spinner-border spinner-border-sm me-2"
+                              role="status"
+                            ></span>
+                            Updating...
+                          </>
+                        ) : (
+                          "Ready"
+                        )}
                       </button>
                     )}
 
+                    {/* Completed button (if status is READY) */}
                     {b.status === "READY" && (
                       <button
                         className="btn btn-sm btn-outline-success"
+                        disabled={updatingId === b._id}
                         onClick={() =>
                           setConfirmAction({ id: b._id, status: "COMPLETED" })
                         }
                       >
-                        Completed
+                        {updatingId === b._id ? (
+                          <>
+                            <span
+                              className="spinner-border spinner-border-sm me-2"
+                              role="status"
+                            ></span>
+                            Updating...
+                          </>
+                        ) : (
+                          "Completed"
+                        )}
                       </button>
                     )}
                   </td>
                 </tr>
               ))}
+
+              {/* Show message when no bookings available */}
               {bookings.length === 0 && (
                 <tr>
                   <td colSpan="6" className="text-muted text-center">
@@ -129,7 +178,7 @@ function ManageBookings() {
         </div>
       </div>
 
-      {/* 🔍 Booking details modal */}
+      {/*  Booking Details Modal */}
       {selectedBooking && (
         <BookingDetails
           booking={selectedBooking}
@@ -137,7 +186,7 @@ function ManageBookings() {
         />
       )}
 
-      {/* ✅ Confirmation modal */}
+      {/*  Confirmation Modal for status update */}
       {confirmAction && (
         <ConfirmActionModal
           message={`Mark booking #${confirmAction.id} as ${confirmAction.status}?`}
@@ -152,4 +201,3 @@ function ManageBookings() {
 }
 
 export default ManageBookings;
-  
