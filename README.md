@@ -1,5 +1,12 @@
 # Bike_Service-Application
 
+While logging as admin :
+
+Admin Secret Code is : bikeadmin123
+
+It ensures that only admin can access the application and perform the required actions and Avoid s unauthorized access.
+
+
 
 Bike Service App
 ================

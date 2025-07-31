@@ -1,5 +1,14 @@
 Bike Service Booking Application Documentation
 
+
+While logging as admin (It would ask while click register as Admin):
+
+Admin Secret Code is : bikeadmin123
+
+It ensures that only admin can access the application and perform the required actions and Avoid s unauthorized access.
+
+---------------------------------------------------------------------------------------
+
 1. Project Overview
 --------------------
 
