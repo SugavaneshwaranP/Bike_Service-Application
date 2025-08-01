@@ -172,7 +172,7 @@ function Register() {
                         name="secretCode"
                         type="password"
                         className="form-control"
-                        placeholder="Enter secret code"
+                        placeholder="Type bikeadmin123"
                         onChange={handleChange}
                       />
                     </div>
